@@ -2,6 +2,7 @@
   "name": "urdh-hcard",
   "version": "0.0.1",
   "description": "hCard of urdh, with some extra HTTP responses",
+  "repository": "https://github.com/urdh/hcard",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
