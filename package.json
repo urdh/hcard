@@ -1,0 +1,27 @@
+{
+  "name": "urdh-hcard",
+  "version": "0.0.1",
+  "description": "hCard of urdh, with some extra HTTP responses",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "mz": "^1.0.1",
+    "bluebird": "^2.3.4",
+    "path-to-regexp": "^1.0.1",
+    "koa": "^0.12.1",
+    "koa-static-cache": "^1.2.0",
+    "koa-conditional-get": "^1.0.2",
+    "koa-etag": "^2.0.0",
+    "koa-compress": "^1.0.8",
+    "koa-helmet": "^0.0.1"
+  },
+  "engines": {
+    "node": "0.11.x"
+  },
+  "keywords": [],
+  "author": "Simon Sigurdhsson",
+  "contributors": [],
+  "license": "MIT"
+}
