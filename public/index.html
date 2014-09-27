@@ -8,9 +8,7 @@
     <meta name="description" content="">
     <meta name="keywords" content="">
     <meta name="robots" content="NOODP">
-    <!-- more meta? -->
     <meta property="og:title" content="Simon Sigurdhsson">
-    <!-- remember: change this uri to point at this page -->
     <meta property="og:url" content="http://sigurdhsson.org/">
     <meta property="og:image" content="http://www.gravatar.com/avatar/2e225ff5beb684088f5c9131d3979a18.jpg?s=512">
     <meta property="og:type" content="profile">
@@ -24,7 +22,6 @@
     <meta name="twitter:title" content="Simon Sigurdhsson">
     <meta name="twitter:description" content="">
     <meta name="twitter:image" content="http://www.gravatar.com/avatar/2e225ff5beb684088f5c9131d3979a18.jpg?s=128">
-    <!-- remember: change this uri to point at this page -->
     <meta name="twitter:url" content="http://sigurdhsson.org/">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="//leaflet.cloudmade.com/dist/leaflet.css" rel=stylesheet>
@@ -135,14 +132,12 @@
   <body>
     <section class="vcard">
       <img id="photo" src="http://www.gravatar.com/avatar/2e225ff5beb684088f5c9131d3979a18.jpg?s=128" alt="Photo of Simon Sigurdhsson" itemprop="image" class="photo">
-      <!-- remember: change this uri to point at this page -->
       <h1><a itemprop="name" class="uid fn" href="http://sigurdhsson.org/">Simon Sigurdhsson</a></h1>
       <p>M.Sc. in Engineering Mathematics, <em itemprop="alumniOf" itemscope itemtype="http://schema.org/EducationalOrganization"><a href="http://chalmers.se/" itemprop="name">Chalmers University of Technology</a></em></p>
       <!-- <p><span itemprop="jobTitle" class="role">XXX</span> at <em itemprop="worksFor" itemscope itemtype="http://schema.org/Organization"><a href="" itemprop="name" class="org">YYY</a></em></p> -->
       <ul class="fa-ul">
         <li><i class="fa fa-li fa-file-pdf-o"></i> <a href="/resume.pdf">Résumé</a> (updated 2014–07–31)</li>
-        <!-- remember: change this uri to point at the blog -->
-        <li><i class="fa fa-li fa-globe"></i> <a href="http://sigurdhsson.org/" class="url">sigurdhsson.org</a></li>
+        <li><i class="fa fa-li fa-globe"></i> <a href="http://blog.sigurdhsson.org/" class="url">blog.sigurdhsson.org</a></li>
         <li><i class="fa fa-li fa-at"></i> <a href="mailto:Sigurdhsson@gmail.com" itemprop="email" class="email">Sigurdhsson@gmail.com</a></li>
         <li id="pgpkey"><i class="fa fa-li fa-key"></i><a href="https://keybase.io/urdh"><span>C016</span><span>5C17</span><span>B435</span><span>7730</span><span>B810</span><span>44EF</span><span>1BBD</span><span>3F32</span><span>551A</span><span>403D</span></a></li>
       </ul>
@@ -208,7 +203,7 @@
     <script type="text/javascript" src="//stamen-maps.a.ssl.fastly.net/js/tile.stamen.js"></script>
     <script>
       $(function() {
-        // Map from google maps
+        // Map
         $('body').prepend('<div id="map"></div>');
         var map = L.map('map', {
           center: [57.706944, 11.966389],
@@ -243,10 +238,6 @@
           {q: 'select * from rss where url="'+lf_uri+'"', format: 'json'},
           function(data) {
             if(data.query.results.item) {
-              //var feed_date = new Date(data.query.created);
-              //var new_song_date = new Date(data.query.results.item[0].pubDate);
-              //var old_song_date = new Date(data.query.results.item[1].pubDate);
-              //((feed_date - new_song_date) < 2 * (new_song_date - old_song_date))
               var joined = data.query.results.item[0].title.split(' – ');
               var link = data.query.results.item[0].link;
               var title = joined[1];
