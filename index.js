@@ -82,8 +82,9 @@ app.use(moved('/media/projects/latexbok/latexbok.pdf',
   'http://github.com/urdh/latexbok/releases/download/edition-2/latexbok-a4.pdf'));
 app.use(moved('/latexbok/media/latexbok.pdf',
   'http://github.com/urdh/latexbok/releases/download/edition-2/latexbok-a4.pdf'));
+app.use(moved('/latexhax/index.html', '/latexhax.html'));
 app.use(moved('/projects/latexhax.html', '/latexhax.html'));
-app.use(multiple('/latexhax.html', 'latexhax'))
+app.use(multiple('/latexhax.html', 'latexhax'));
 // These are on the current blog
 app.use(moved('/sitemap.xml',   'http://blog.sigurdhsson.org/sitemap.xml'));
 app.use(moved('/atom.xml',      'http://blog.sigurdhsson.org/atom.xml'));
