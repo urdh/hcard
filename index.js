@@ -37,9 +37,9 @@ app.use(function *(next) {
 });
 
 // Then, our route middlewares for redirects and missing pages
-function gone(path) {
+function gone(uri) {
   return function*(next) {
-    var re = pathToRegexp(path);
+    var re = pathToRegexp(uri);
     if(re.exec(this.path)) {
       this.status = 410;
     } else {
@@ -47,12 +47,24 @@ function gone(path) {
     }
   }
 }
-function moved(path, target) {
+function moved(uri, target) {
   return function *(next){
-    var re = pathToRegexp(path);
+    var re = pathToRegexp(uri);
     if(m = re.exec(this.path)) {
       this.set('Location', this.path.replace(re, target));
       this.status = 301;
+    } else {
+      yield next;
+    }
+  }
+}
+function multiple(uri, ident) {
+  return function *(next){
+    var re = pathToRegexp(uri);
+    if(re.exec(this.path)) {
+      this.body = fs.readFileSync(path.join(__dirname, 'errors', '300-' + ident + '.html'));
+      this.type = 'html';
+      this.status = 300;
     } else {
       yield next;
     }
@@ -70,7 +82,8 @@ app.use(moved('/media/projects/latexbok/latexbok.pdf',
   'http://github.com/urdh/latexbok/releases/download/edition-2/latexbok-a4.pdf'));
 app.use(moved('/latexbok/media/latexbok.pdf',
   'http://github.com/urdh/latexbok/releases/download/edition-2/latexbok-a4.pdf'));
-app.use(moved('/projects/latexhax.html', 'http://blog.sigurdhsson.org/latexhax.html'));
+app.use(moved('/projects/latexhax.html', '/latexhax.html'));
+app.use(multiple('/latexhax.html', 'latexhax'))
 // These are on the current blog
 app.use(moved('/sitemap.xml',   'http://blog.sigurdhsson.org/sitemap.xml'));
 app.use(moved('/atom.xml',      'http://blog.sigurdhsson.org/atom.xml'));
