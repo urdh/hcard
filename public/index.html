@@ -113,6 +113,15 @@
         margin-right: 1em;
         float: left;
       }
+      #vcard-link {
+        position: absolute;
+        top: 0;
+        right: 0;
+        font-size: smaller;
+      }
+      #vcard-link p {
+        margin: 1ex;
+      }
       @media (max-width: 800px) {
         .block { width: 100%; float: none; }
       }
@@ -202,6 +211,10 @@
           <li id="recentphoto"><i class="fa fa-li fa-camera-retro"></i><span>n/a</span></li>
         </ul>
       </div>
+
+      <aside id="vcard-link">
+        <p><a href="http://dev.h2vx.com/vcf/hcard.sigurdhsson.org">Get vCard</a></p>
+      </aside>
     </section>
     <script async src="//www.google-analytics.com/analytics.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
