@@ -77,6 +77,13 @@ app.use(moved('/atom.xml',      'http://blog.sigurdhsson.org/atom.xml'));
 app.use(moved('/2012/11/:post', 'http://blog.sigurdhsson.org/2012/11/$1'));
 app.use(moved('/2014/04/:post', 'http://blog.sigurdhsson.org/2014/04/$1'));
 app.use(moved('/2014/09/:post', 'http://blog.sigurdhsson.org/2014/09/$1'));
+// Project on github from before move
+app.use(moved('/skrapport/:uri*', 'http://urdh.github.io/skrapport/$1'));
+app.use(moved('/dotfiles/:uri*',  'http://urdh.github.io/dotfiles/$1'));
+app.use(moved('/skmath/:uri*',    'http://urdh.github.io/skmath/$1'));
+app.use(moved('/latexbok/:uri*',  'http://urdh.github.io/latexbok/$1'));
+app.use(moved('/skdoc/:uri*',     'http://urdh.github.io/skdoc/$1'));
+app.use(moved('/chscite/:uri*',   'http://urdh.github.io/chscite/$1'));
 
 // Finally, the static cache serving middleware serving the hCard
 app.use(staticCache(path.join(__dirname, 'public'), {
