@@ -241,7 +241,7 @@
         $.get('http://query.yahooapis.com/v1/public/yql',
           {q: 'select * from rss where url="'+gr_uri+'"', format: 'json'},
           function(data) {
-            if(data.query.results.item){
+            if(data.query.results && data.query.results.item){
               var link = data.query.results.item[0].link;
               var title = data.query.results.item[0].title;
               var author = data.query.results.item[0].author_name;
@@ -259,7 +259,7 @@
         $.get('http://query.yahooapis.com/v1/public/yql',
           {q: 'select * from rss where url="'+lf_uri+'"', format: 'json'},
           function(data) {
-            if(data.query.results.item) {
+            if(data.query.results && data.query.results.item) {
               var joined = data.query.results.item[0].title.split(' – ');
               var link = data.query.results.item[0].link;
               var title = joined[1];
@@ -278,7 +278,7 @@
         $.get('http://query.yahooapis.com/v1/public/yql',
           {q: 'select * from rss where url="'+px_uri+'"', format: 'json'},
           function(data) {
-            if(data.query.results.item){
+            if(data.query.results && data.query.results.item){
               var link = data.query.results.item[0].link;
               var title = data.query.results.item[0].title;
               $('#recentphoto>span').html(
