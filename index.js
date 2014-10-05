@@ -86,7 +86,6 @@ app.use(moved('/latexhax/index.html', '/latexhax.html'));
 app.use(moved('/projects/latexhax.html', '/latexhax.html'));
 app.use(multiple('/latexhax.html', 'latexhax'));
 // These are on the current blog
-app.use(moved('/sitemap.xml',   'http://blog.sigurdhsson.org/sitemap.xml'));
 app.use(moved('/atom.xml',      'http://blog.sigurdhsson.org/atom.xml'));
 app.use(moved('/2012/11/:post', 'http://blog.sigurdhsson.org/2012/11/$1'));
 app.use(moved('/2014/04/:post', 'http://blog.sigurdhsson.org/2014/04/$1'));
