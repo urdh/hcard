@@ -242,9 +242,10 @@
           {q: 'select * from rss where url="'+gr_uri+'"', format: 'json'},
           function(data) {
             if(data.query.results && data.query.results.item){
-              var link = data.query.results.item[0].link;
-              var title = data.query.results.item[0].title;
-              var author = data.query.results.item[0].author_name;
+              var book = data.query.results.item[0] || data.query.results.item;
+              var link = book.link;
+              var title = book.title;
+              var author = book.author_name;
               $('#reading>span').html(
                 '“<a href="' + link + '">' + title + '</a>” ' +
                 'by <em>' + author + '</em>.'
@@ -260,10 +261,11 @@
           {q: 'select * from rss where url="'+lf_uri+'"', format: 'json'},
           function(data) {
             if(data.query.results && data.query.results.item) {
-              var joined = data.query.results.item[0].title.split(' – ');
-              var link = data.query.results.item[0].link;
-              var title = joined[1];
-              var artist = joined[0];
+              var track = data.query.results.item[0] || data.query.results.item;
+              var split_name = track.title.split(' – ');
+              var link = track.link;
+              var title = split_name[1];
+              var artist = split_name[0];
               $('#listening>span').html(
                 '“<a href="' + link + '">' + title + '</a>” ' +
                 'by <em>' + artist + '</em>.'
@@ -279,8 +281,9 @@
           {q: 'select * from rss where url="'+px_uri+'"', format: 'json'},
           function(data) {
             if(data.query.results && data.query.results.item){
-              var link = data.query.results.item[0].link;
-              var title = data.query.results.item[0].title;
+              var photo = data.query.results.item[0] || data.query.results.item;
+              var link = photo.link;
+              var title = photo.title;
               $('#recentphoto>span').html(
                 '“<a href="' + link + '">' + title + '</a>.”'
               );
