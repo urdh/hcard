@@ -4,7 +4,7 @@ rvm:
 
 cache: bundler
 install:
-  - gem install html-proof
+  - gem install html-proofer
   - npm install html5-lint
 script:
   - htmlproof public/
