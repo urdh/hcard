@@ -94,23 +94,23 @@
       #pgpkey a {
         text-decoration: none !important;
       }
-      #pgpkey span+span {
+      #pgpkey span span+span {
         padding-left: 1ex;
       }
-      #pgpkey span:nth-child(-n+6) {
+      #pgpkey span span:nth-child(-n+6) {
         width: 0;
         overflow: hidden;
         display: inline-block;
         padding-left: 0;
       }
-      #pgpkey span:nth-child(1) {
+      #pgpkey span span:nth-child(1) {
         width: 4.5ex;
       }
-      #pgpkey span:nth-child(1)::before {
+      #pgpkey span span:nth-child(1)::before {
         content: '...';
         padding-right: 4ex;
       }
-      #pgpkey span:nth-child(7) {
+      #pgpkey span span:nth-child(7) {
         padding-left: 0;
       }
       .block {
@@ -148,17 +148,17 @@
     </style>
   </head>
   <body>
-    <section class="vcard">
-      <img id="photo" src="http://www.gravatar.com/avatar/2e225ff5beb684088f5c9131d3979a18.jpg?s=128" alt="Photo of Simon Sigurdhsson" itemprop="image" class="photo">
-      <h1><a itemprop="name" class="uid fn" href="http://sigurdhsson.org/">Simon Sigurdhsson</a><span class="hidden"> (<span class="nickname" itemprop="alternateName">urdh</span>)</span></h1>
-      <p>M.Sc. in Engineering Mathematics, <em itemprop="alumniOf" itemscope itemtype="http://schema.org/EducationalOrganization"><a href="http://chalmers.se/" itemprop="name">Chalmers University of Technology</a></em></p>
-      <!-- <p><span itemprop="jobTitle" class="role">XXX</span> at <em itemprop="worksFor" itemscope itemtype="http://schema.org/Organization"><a href="" itemprop="name" class="org">YYY</a></em></p> -->
+    <section class="h-card vcard">
+      <img id="photo" src="http://www.gravatar.com/avatar/2e225ff5beb684088f5c9131d3979a18.jpg?s=128" alt="Photo of Simon Sigurdhsson" itemprop="image" class="u-photo photo">
+      <h1><a itemprop="name" class="u-url u-uid p-name url uid fn" href="http://sigurdhsson.org/" rel="me">Simon Sigurdhsson</a><span class="hidden"> (<span class="nickname" itemprop="alternateName">urdh</span>)</span></h1>
+      <p class="p-note">M.Sc. in Engineering Mathematics, <em itemprop="alumniOf" itemscope itemtype="http://schema.org/EducationalOrganization"><a href="http://chalmers.se/" itemprop="name">Chalmers University of Technology</a></em></p>
+      <!-- <p><span itemprop="jobTitle" class="p-job-title title">XXX</span> at <em itemprop="worksFor" itemscope itemtype="http://schema.org/Organization"><a href="" itemprop="name" class="p-org org">YYY</a></em></p> -->
       <ul class="fa-ul">
         <li><i class="fa fa-li fa-file-pdf-o"></i> <a href="/resume.pdf">Résumé</a> (updated 2014–07–31)</li>
-        <li><i class="fa fa-li fa-globe"></i> <a href="http://blog.sigurdhsson.org/" class="url">blog.sigurdhsson.org</a></li>
-        <li><i class="fa fa-li fa-globe"></i> <a href="http://projects.sigurdhsson.org/" class="url">projects.sigurdhsson.org</a></li>
-        <li><i class="fa fa-li fa-at"></i> <a href="mailto:Sigurdhsson@gmail.com" itemprop="email" class="email">Sigurdhsson@gmail.com<span class="hidden"> (<span class="type">pref</span>erred)</span></a></li>
-        <li id="pgpkey"><i class="fa fa-li fa-key"></i><a href="https://keybase.io/urdh"><span>C016</span><span>5C17</span><span>B435</span><span>7730</span><span>B810</span><span>44EF</span><span>1BBD</span><span>3F32</span><span>551A</span><span>403D</span></a></li>
+        <li><i class="fa fa-li fa-globe"></i> <a href="http://blog.sigurdhsson.org/" class="u-url url">blog.sigurdhsson.org</a></li>
+        <li><i class="fa fa-li fa-globe"></i> <a href="http://projects.sigurdhsson.org/" class="u-url url">projects.sigurdhsson.org</a></li>
+        <li><i class="fa fa-li fa-at"></i> <a href="mailto:Sigurdhsson@gmail.com" itemprop="email" class="u-email email">Sigurdhsson@gmail.com<span class="hidden"> (<span class="type">pref</span>erred)</span></a></li>
+        <li id="pgpkey"><i class="fa fa-li fa-key"></i><a href="https://keybase.io/urdh"><span class="u-key key"><span>C016</span><span>5C17</span><span>B435</span><span>7730</span><span>B810</span><span>44EF</span><span>1BBD</span><span>3F32</span><span>551A</span><span>403D</span></span></a></li>
       </ul>
 
       <aside id="vcard-link">
@@ -168,17 +168,17 @@
       <div class="block">
         <!--
         <h2>Work</h2>
-        <ul class="fa-ul" itemprop="workLocation" itemscope itemtype="http://schema.org/Place" class="org">
-          <li><i class="fa fa-li fa-briefcase"></i> <a href="" itemprop="name" class="organization-name url"></a></li>
-          <li><i class="fa fa-li fa-at"></i> <a href="mailto:" class="email"></a></li>
-          <li><i class="fa fa-li fa-phone"></i> <a href="tel:" itemprop="telephone" class="tel"><span class="hidden"> (<span class="type">work</span>)</span></a></li>
+        <ul class="fa-ul" itemprop="workLocation" itemscope itemtype="http://schema.org/Place" class="p-org h-card org">
+          <li><i class="fa fa-li fa-briefcase"></i> <a href="" itemprop="name" class="u-url p-name organization-name url"></a></li>
+          <li><i class="fa fa-li fa-at"></i> <a href="mailto:" class="u-email email"></a></li>
+          <li><i class="fa fa-li fa-phone"></i> <a href="tel:" itemprop="telephone" class="p-tel tel"><span class="hidden"> (<span class="type">work</span>)</span></a></li>
           <li><i class="fa fa-li fa-envelope"></i>
-            <p itemprop="address" class="adr" itemscope itemtype="http://schema.org/PostalAddress">
+            <p itemprop="address" class="p-adr h-adr" itemscope itemtype="http://schema.org/PostalAddress">
               <span class="hidden"><span class="type">Work</span> address:<br></span>
-              <span itemprop="streetAddress" class="street-address"></span><br>
-              <span itemprop="postalCode" class="postal-code"></span>
-              <span itemprop="addressLocality" class="locality"></span><br>
-              <span itemprop="addressCountry" class="country-name"></span>
+              <span itemprop="streetAddress" class="p-street-address street-address"></span><br>
+              <span itemprop="postalCode" class="p-postal-code postal-code"></span>
+              <span itemprop="addressLocality" class="p-locality locality"></span><br>
+              <span itemprop="addressCountry" class="p-country-name country-name"></span>
             </p>
           </li>
         </ul>
@@ -186,14 +186,14 @@
 
         <h2>Home</h2>
         <ul class="fa-ul" itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
-          <li><i class="fa fa-li fa-phone"></i> <a href="tel:+46-703-293054" itemprop="telephone" class="tel"><span class="value">+46</span> <span class="value">703</span>–<span class="value">29</span> <span class="value">30</span> <span class="value">54</span><span class="hidden"> (<span class="type">home</span>)</span></a></li>
+          <li><i class="fa fa-li fa-phone"></i> <a href="tel:+46-703-293054" itemprop="telephone" class="p-tel tel"><span class="value">+46</span> <span class="value">703</span>–<span class="value">29</span> <span class="value">30</span> <span class="value">54</span><span class="hidden"> (<span class="type">home</span>)</span></a></li>
           <li><i class="fa fa-li fa-envelope"></i>
-            <p itemprop="address" class="adr" itemscope itemtype="http://schema.org/PostalAddress">
+            <p itemprop="address" class="p-adr h-adr adr" itemscope itemtype="http://schema.org/PostalAddress">
               <span class="hidden"><span class="type">Home</span> address:<br></span>
-              <span itemprop="streetAddress" class="street-address">Engdahlsgatan 6C</span><br>
-              <span itemprop="postalCode" class="postal-code">SE–412 59</span>
-              <span itemprop="addressLocality" class="locality">Göteborg</span><br>
-              <span itemprop="addressCountry" class="country-name">Sweden</span>
+              <span itemprop="streetAddress" class="p-street-address street-address">Engdahlsgatan 6C</span><br>
+              <span itemprop="postalCode" class="p-postal-code postal-code">SE–412 59</span>
+              <span itemprop="addressLocality" class="p-locality locality">Göteborg</span><br>
+              <span itemprop="addressCountry" class="p-country-name country-name">Sweden</span>
             </p>
           </li>
         </ul>
