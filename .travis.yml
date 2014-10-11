@@ -1,0 +1,16 @@
+language: ruby
+rvm:
+  - 2.1.1
+
+cache: bundler
+install:
+  - gem install html-proof
+  - npm install html5-lint
+script:
+  - htmlproof public/
+  - htmlproof errors/
+  - ./html5check.sh
+
+
+after_success:
+  - 'curl -s http://google.com/ping\?sitemap=http:%3A%2F%2Fsigurdhsson.org%2Fsitemap.xml > /dev/null'
