@@ -101,7 +101,7 @@ app.use(moved('/chscite/:uri*',   'http://urdh.github.io/chscite/$1'));
 // Finally, the static cache serving middleware serving the hCard
 app.use(staticCache(path.join(__dirname, 'public'), {
   maxAge: 28 * 24 * 60 * 60,
-  buffer: true,
+  buffer: process.env.DYNT ? true : false,
   gzip: false, // compress middleware does this
   alias: { '/': '/index.html' }
 }));
