@@ -97,6 +97,7 @@ app.use(moved('/skmath/:uri*',    'http://projects.sigurdhsson.org/skmath/$1'));
 app.use(moved('/latexbok/:uri*',  'http://projects.sigurdhsson.org/latexbok/$1'));
 app.use(moved('/skdoc/:uri*',     'http://projects.sigurdhsson.org/skdoc/$1'));
 app.use(moved('/chscite/:uri*',   'http://projects.sigurdhsson.org/chscite/$1'));
+app.use(moved('/streck/:uri*',    'http://projects.sigurdhsson.org/streck/$1'));
 
 // Finally, the static cache serving middleware serving the hCard
 app.use(staticCache(path.join(__dirname, 'public'), {
