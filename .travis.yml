@@ -2,7 +2,9 @@ language: ruby
 rvm:
   - 2.1.1
 
+sudo: false
 cache: bundler
+
 install:
   - gem install html-proofer
   - npm install html5-lint
