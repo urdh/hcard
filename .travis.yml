@@ -5,9 +5,14 @@ rvm:
 sudo: false
 cache: bundler
 
+# Make build error instead of fail when validator.nu is down
+before_install:
+  - wget -O /dev/null http://validator.nu
+
 install:
   - gem install html-proofer
   - npm install html5-lint
+
 script:
   - htmlproof public/
   - htmlproof errors/
