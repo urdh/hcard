@@ -21,3 +21,11 @@ script:
 
 after_success:
   - 'curl -s http://google.com/ping\?sitemap=http:%3A%2F%2Fsigurdhsson.org%2Fsitemap.xml > /dev/null'
+
+deploy:
+  provider: heroku
+  api_key:
+    secure: V8A0CH4UGcjlcDJlgVYsDpZBYAmtnlOyqLkBAlqYY/5uGc4VBrpocX88lFRjk4R7h78d6VkiqdGOKWutSWOaa+h+/InI3pPgw4+tEcZBOyQxdW8FHeGlJPLN6m9ykwJ0/YTvB7Xa8oE+irOJGdCvGj6YS4AfBs2DuiRC4tD0LWo=
+  app: urdh-hcard
+  on:
+    repo: urdh/hcard
