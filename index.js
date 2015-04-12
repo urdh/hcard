@@ -2,8 +2,32 @@ var app = require('koa')();
 var staticCache = require('koa-static-cache');
 
 var pathToRegexp = require('path-to-regexp');
+var Promise = require('bluebird')
+var GitHubApi = require('github');
 var path = require('path');
 var fs = require('mz/fs');
+
+var getGithubCommits = function() {
+  var github = new GitHubApi({version: '3.0.0', protocol: 'https'});
+  var getEvents = Promise.promisify(github.events.getFromUserPublic, github.events);
+  return getEvents({user: 'urdh'}).then(function(result) {
+    return [].concat.apply([], result.filter(function(item) {
+      return item['type'] == 'PushEvent';
+    }).map(function(item) {
+      return item['payload']['commits'].map(function(subitem) {
+        return {
+          'sha': subitem['sha'],
+          'url': subitem['url'],
+          'message': subitem['message'],
+          'repo': item['repo']['name'],
+          'date': item['created_at']
+        };
+      });
+    })).sort(function(a, b) {
+      return Date.parse(a['date']) - Date.parse(b['date']);
+    }).reverse();
+  });
+}
 
 // First, some "top-layer" middlewares
 app.use(require('koa-helmet').defaults());
@@ -33,6 +57,17 @@ app.use(function *(next) {
       this.status = 500;
     }
     this.app.emit('error', err, this);
+  }
+});
+
+// This is just providing a very limited part of the Github API
+app.use(function *(next) {
+  var re = pathToRegexp('/recent-commits.json');
+  if(re.exec(this.path)) {
+    this.body = yield getGithubCommits();
+    this.type = 'json';
+  } else {
+    yield next;
   }
 });
 

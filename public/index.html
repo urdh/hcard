@@ -227,6 +227,7 @@
           <li id="reading"><i class="fa fa-li fa-bookmark"></i><span>n/a</span></li>
           <li id="listening"><i class="fa fa-li fa-volume-up"></i><span>n/a</span></li>
           <li id="recentphoto"><i class="fa fa-li fa-camera-retro"></i><span>n/a</span></li>
+          <li id="recentcode"><i class="fa fa-li fa-code-fork"></i><span>n/a</span></li>
         </ul>
       </div>
     </section>
@@ -299,6 +300,23 @@
               );
             } else {
               $('#recentphoto>span').html('Nothing.');
+            }
+          }
+        );
+        // Most recent commit on Github
+        $.get('/recent-commits.json', {format: 'json'},
+          function(data) {
+            if(data && data[0]){
+              var commit = data[0];
+              var repo = commit.repo;
+              var link = commit.url;
+              var message = commit.message;
+              $('#recentcode>span').html(
+                '“<a href="' + link + '">' + message + '</a>” ' +
+                'to <em>' + repo + '.'
+              );
+            } else {
+              $('#recentcode>span').html('Nothing.');
             }
           }
         );
