@@ -6,7 +6,7 @@ var path = require('path');
 var fs = require('mz/fs');
 
 // First, some "top-layer" middlewares
-app.use(require('koa-helmet').hidePoweredBy());
+app.use(require('koa-helmet').defaults());
 app.use(require('koa-conditional-get')());
 app.use(require('koa-etag')());
 app.use(require('koa-compress')());
