@@ -23,9 +23,7 @@ var getGithubCommits = function() {
           'date': item['created_at']
         };
       });
-    })).sort(function(a, b) {
-      return Date.parse(a['date']) - Date.parse(b['date']);
-    }).reverse();
+    }));
   });
 }
 

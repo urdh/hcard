@@ -126,6 +126,48 @@
         margin-right: 1em;
         float: left;
       }
+      .wide.block {
+        width: 80%;
+        margin-right: 0;
+        border-top: 1px solid transparent;
+        float: none;
+        clear: both;
+      }
+      .wide.block h2 {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: row;
+            -ms-flex-direction: row;
+                flex-direction: row;
+               -webkit-box-pack: center;
+        -webkit-justify-content: center;
+                  -ms-flex-pack: center;
+                justify-content: center;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+      }
+      .wide.block h2:before, .wide.block h2:after {
+        background: #111111;
+        content: '\a0';
+         -webkit-box-flex: 1;
+        -webkit-flex-grow: 1;
+        -ms-flex-positive: 1;
+                flex-grow: 1;
+        height: 2px;
+        position: relative;
+        top: 0.5em;
+      }
+      .wide.block h2:before {
+        margin-right: 1em;
+      }
+      .wide.block h2:after {
+        margin-left: 1em;
+      }
       #vcard-link {
         position: absolute;
         top: 0;
@@ -221,8 +263,10 @@
           <li><i class="fa fa-li fa-camera-retro"></i> <a href="http://500px.com/urdh" rel="me" itemprop="sameAs">urdh</a> (500px)</li>
           <li><i class="fa fa-li fa-camera-retro"></i> <a href="http://1x.com/member/urdh" rel="me" itemprop="sameAs">urdh</a> (1x)</li>
         </ul>
+      </div>
 
-        <h2>Currently...</h2>
+      <div class="wide block">
+        <h2>Currently</h2>
         <ul class="fa-ul">
           <li id="reading"><i class="fa fa-li fa-bookmark"></i><span>n/a</span></li>
           <li id="listening"><i class="fa fa-li fa-volume-up"></i><span>n/a</span></li>
