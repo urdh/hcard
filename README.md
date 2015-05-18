@@ -5,6 +5,7 @@ In addition to doing that, it serves 301/410 messages on some URLs, since some o
 
 All HTML content is validated using a Travis CI setup.
 
-[![Build Status](https://travis-ci.org/urdh/hcard.svg?branch=master)](https://travis-ci.org/urdh/hcard)
+[![Build Status](https://img.shields.io/travis/urdh/hcard.svg)](https://travis-ci.org/urdh/hcard)
+[![Codacy](https://img.shields.io/codacy/c54ae6fa8886476a94176e14adff33f3.svg)]()
 
 License is MIT, if anyone cares.
