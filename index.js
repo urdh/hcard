@@ -2,12 +2,12 @@ var app = require('koa')();
 var staticCache = require('koa-static-cache');
 
 var pathToRegexp = require('path-to-regexp');
-var Promise = require('bluebird')
+var Promise = require('bluebird');
 var GitHubApi = require('github');
 var path = require('path');
 var fs = require('mz/fs');
 
-var getGithubCommits = function() {
+function getGithubCommits() {
   var github = new GitHubApi({version: '3.0.0', protocol: 'https'});
   var getEvents = Promise.promisify(github.events.getFromUserPublic, github.events);
   return getEvents({user: 'urdh'}).then(function(result) {
@@ -18,7 +18,7 @@ var getGithubCommits = function() {
         return {
           'sha': subitem['sha'],
           'url': subitem['url'],
-          'message': subitem['message'],
+          'message': subitem['message'].split("\n")[0],
           'repo': item['repo']['name'],
           'date': item['created_at']
         };
