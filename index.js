@@ -1,5 +1,6 @@
 var app = require('koa')();
 var staticCache = require('koa-static-cache');
+var fileCache = require('koa-file-cache');
 
 var pathToRegexp = require('path-to-regexp');
 var Promise = require('bluebird');
@@ -137,6 +138,20 @@ app.use(function *(next) {
   }
 });
 
+// For caching the expensive API calls
+app.use(function *(next) {
+  this.caching = /\.json$/.test(this.path);
+  this.cacheName = this.path.replace(/\/+/, "") || 'not-cached';
+  console.log(this.cacheName, this.caching, this.path);
+  yield next;
+});
+app.use(fileCache({
+  cacheTime: 5 * 60 * 1000,
+  folder: '/tmp',
+  gzip: false,
+  delegate: true
+}));
+
 // This is just providing a very limited parts of some APIs
 app.use(function *(next) {
   var lfmre = pathToRegexp('/recent-tracks.json');
@@ -144,16 +159,16 @@ app.use(function *(next) {
   var ghre = pathToRegexp('/recent-commits.json');
   var pxre = pathToRegexp('/recent-photos.json');
   if(lfmre.exec(this.path)) {
-    this.body = yield getRecentTracks();
+    if(!this.body) this.body = yield getRecentTracks();
     this.type = 'json';
   } else if(grre.exec(this.path)) {
-    this.body = yield getCurrentBook();
+    if(!this.body) this.body = yield getCurrentBook();
     this.type = 'json';
   } else if(ghre.exec(this.path)) {
-    this.body = yield getGithubCommits();
+    if(!this.body) this.body = yield getGithubCommits();
     this.type = 'json';
   } else if(pxre.exec(this.path)) {
-    this.body = yield get500pxPhotos();
+    if(!this.body) this.body = yield get500pxPhotos();
     this.type = 'json';
   } else {
     yield next;
