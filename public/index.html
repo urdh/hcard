@@ -312,15 +312,13 @@
         );
         // Currently playing on last.fm
         lf_uri = 'http://ws.audioscrobbler.com/1.0/user/TinyGuy/recenttracks.rss'
-        $.get('http://query.yahooapis.com/v1/public/yql',
-          {q: 'select * from rss where url="'+lf_uri+'"', format: 'json'},
+        $.get('/recent-tracks.json', {format: 'json'},
           function(data) {
-            if(data.query.results && data.query.results.item) {
-              var track = data.query.results.item[0] || data.query.results.item;
-              var split_name = track.title.split(' – ');
-              var link = track.link;
-              var title = split_name[1];
-              var artist = split_name[0];
+            if(data && data[0]) {
+              var track = data[0];
+              var link = track.url;
+              var title = track.title;
+              var artist = track.artist;
               $('#listening>span').html(
                 '“<a href="' + link + '">' + title + '</a>” ' +
                 'by <em>' + artist + '</em>.'

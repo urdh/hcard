@@ -17,7 +17,8 @@
     "koa-etag": "^2.0.0",
     "koa-compress": "^1.0.8",
     "koa-helmet": "^0.0.3",
-    "github": "^0.2.3"
+    "github": "^0.2.3",
+    "lastfmapi": "^0.0.6"
   },
   "engines": {
     "node": "0.12.2"

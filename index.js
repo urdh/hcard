@@ -4,8 +4,27 @@ var staticCache = require('koa-static-cache');
 var pathToRegexp = require('path-to-regexp');
 var Promise = require('bluebird');
 var GitHubApi = require('github');
+var LastfmApi = require('lastfmapi');
 var path = require('path');
 var fs = require('mz/fs');
+
+function getRecentTracks() {
+  var lastfm = new LastfmApi({
+    api_key: process.env.LASTFM_API_KEY || '',
+    secret: process.env.LASTFM_SECRET || ''
+  });
+  var getRecentTracks = Promise.promisify(lastfm.user.getRecentTracks, lastfm.user);
+  return getRecentTracks({user: 'TinyGuy'}).then(function (result) {
+    return [].concat.apply([], result['track'].map(function(item) {
+      return {
+        'artist': item['artist']['#text'],
+        'title': item['name'],
+        'url': item['url'],
+        'date': new Date(item['date']['uts'] * 1000).toISOString()
+      };
+    }));
+  });
+}
 
 function getGithubCommits() {
   var github = new GitHubApi({version: '3.0.0', protocol: 'https'});
@@ -55,6 +74,17 @@ app.use(function *(next) {
       this.status = 500;
     }
     this.app.emit('error', err, this);
+  }
+});
+
+// This is just providing a very limited part of the Last.fm API
+app.use(function *(next) {
+  var re = pathToRegexp('/recent-tracks.json');
+  if(re.exec(this.path)) {
+    this.body = yield getRecentTracks();
+    this.type = 'json';
+  } else {
+    yield next;
   }
 });
 
