@@ -324,16 +324,16 @@
           }
         );
         // Most recent photo from 500px
-        px_uri = 'https://500px.com/urdh/rss'
-        $.get('http://query.yahooapis.com/v1/public/yql',
-          {q: 'select * from rss where url="'+px_uri+'"', format: 'json'},
+        $.get('/recent-photos.json', {format: 'json'},
           function(data) {
-            if(data.query.results && data.query.results.item){
-              var photo = data.query.results.item[0] || data.query.results.item;
-              var link = photo.link;
+            if(data && data[0]){
+              var photo = data[0];
+              var link = photo.urdh;
               var title = photo.title;
+              var camera = photo.camera;
               $('#recentphoto>span').html(
-                '“<a href="' + link + '">' + title + '</a>.”'
+                '“<a href="' + link + '">' + title + '</a>” ' +
+                'using a <em>' + camera + '</em>.'
               );
             } else {
               $('#recentphoto>span').html('Nothing.');

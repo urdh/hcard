@@ -6,6 +6,7 @@ var Promise = require('bluebird');
 var GitHubApi = require('github');
 var GoodreadsApi = require('goodreads');
 var LastfmApi = require('lastfmapi');
+var Api500px = require('500px');
 var path = require('path');
 var fs = require('mz/fs');
 
@@ -87,6 +88,23 @@ function getGithubCommits() {
   });
 }
 
+function get500pxPhotos() {
+  var api500 = new Api500px(process.env.PX500_API_KEY || '');
+  var getPhotos = Promise.promisify(api500.photos.getByUsername, api500.photos);
+  return getPhotos('urdh', {sort: 'created_at'}).then(function(result) {
+    return [].concat.apply([], result['photos'].map(function(item) {
+      return {
+        'url': 'http://500px.com' + item['url'],
+        'title': item['name'],
+        'date': item['taken_at'],
+        'camera': item['camera']
+      };
+    }));
+  }).catch(function() {
+    return {};
+  });
+}
+
 // First, some "top-layer" middlewares
 app.use(require('koa-helmet').defaults());
 app.use(require('koa-conditional-get')());
@@ -124,6 +142,7 @@ app.use(function *(next) {
   var lfmre = pathToRegexp('/recent-tracks.json');
   var grre = pathToRegexp('/currently-reading.json');
   var ghre = pathToRegexp('/recent-commits.json');
+  var pxre = pathToRegexp('/recent-photos.json');
   if(lfmre.exec(this.path)) {
     this.body = yield getRecentTracks();
     this.type = 'json';
@@ -132,6 +151,9 @@ app.use(function *(next) {
     this.type = 'json';
   } else if(ghre.exec(this.path)) {
     this.body = yield getGithubCommits();
+    this.type = 'json';
+  } else if(pxre.exec(this.path)) {
+    this.body = yield get500pxPhotos();
     this.type = 'json';
   } else {
     yield next;
