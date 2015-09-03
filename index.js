@@ -4,6 +4,7 @@ var staticCache = require('koa-static-cache');
 var pathToRegexp = require('path-to-regexp');
 var Promise = require('bluebird');
 var GitHubApi = require('github');
+var GoodreadsApi = require('goodreads');
 var LastfmApi = require('lastfmapi');
 var path = require('path');
 var fs = require('mz/fs');
@@ -22,6 +23,44 @@ function getRecentTracks() {
         'url': item['url'],
         'date': new Date(item['date']['uts'] * 1000).toISOString()
       };
+    }));
+  }).catch(function() {
+    return {};
+  });
+}
+
+function getCurrentBook() {
+  var goodreads = new GoodreadsApi.client({
+    key: process.env.GOODREADS_API_KEY || '',
+    secret: process.env.GOODREADS_SECRET || ''
+  });
+  var getBooks = Promise.promisify(goodreads.getSingleShelf, goodreads);
+  // Shitty goodreads node module is shitty and doesn't "conform to node.js
+  // convention of accepting a callback as last argument and calling that
+  // callback with error as the first argument and success value on the
+  // second argument", the callback only accepting one argument containing data.
+  return getBooks({userID: '27549920', shelf: 'currently-reading'}).then(function(){
+    // Data should be here, but it isn't.
+  }).catch(function(result) {
+    // Here's the data.
+    return [].concat.apply([], result.GoodreadsResponse.books.map(function(item) {
+      return item.book.map(function(subitem) {
+        var authors = subitem.authors[0].author.map(function(subsubitem) {
+          return subsubitem.name[0] +
+            ((subsubitem.role[0] != '') ? (' (' + subsubitem.role[0] + ')') : '');
+        }).reduce(function(prev, curr, idx, arr) {
+          if(arr.length <= 1)
+            return curr;
+          if(idx == arr.length - 1)
+            return prev + ' and ' + curr;
+          return prev + ', ' + curr;
+        }, '');
+        return {
+          'title': subitem.title[0],
+          'authors': authors,
+          'url': subitem.link[0]
+        };
+      });
     }));
   });
 }
@@ -43,6 +82,8 @@ function getGithubCommits() {
         };
       });
     }));
+  }).catch(function() {
+    return {};
   });
 }
 
@@ -73,25 +114,23 @@ app.use(function *(next) {
       this.type = 'html';
       this.status = 500;
     }
+    console.log(err);
     this.app.emit('error', err, this);
   }
 });
 
-// This is just providing a very limited part of the Last.fm API
+// This is just providing a very limited parts of some APIs
 app.use(function *(next) {
-  var re = pathToRegexp('/recent-tracks.json');
-  if(re.exec(this.path)) {
+  var lfmre = pathToRegexp('/recent-tracks.json');
+  var grre = pathToRegexp('/currently-reading.json');
+  var ghre = pathToRegexp('/recent-commits.json');
+  if(lfmre.exec(this.path)) {
     this.body = yield getRecentTracks();
     this.type = 'json';
-  } else {
-    yield next;
-  }
-});
-
-// This is just providing a very limited part of the Github API
-app.use(function *(next) {
-  var re = pathToRegexp('/recent-commits.json');
-  if(re.exec(this.path)) {
+  } else if(grre.exec(this.path)) {
+    this.body = yield getCurrentBook();
+    this.type = 'json';
+  } else if(ghre.exec(this.path)) {
     this.body = yield getGithubCommits();
     this.type = 'json';
   } else {

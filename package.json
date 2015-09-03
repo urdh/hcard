@@ -18,7 +18,8 @@
     "koa-compress": "^1.0.8",
     "koa-helmet": "^0.0.3",
     "github": "^0.2.3",
-    "lastfmapi": "^0.0.6"
+    "lastfmapi": "^0.0.6",
+    "goodreads": "git@github.com:bdickason/node-goodreads.git#44fd06b1c4"
   },
   "engines": {
     "node": "0.12.2"

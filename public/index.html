@@ -290,17 +290,13 @@
           zoomControl: false
         });
         // Currently reading on Goodreads (Note: public api key is from rss feed link)
-        gr_uri = 'https://www.goodreads.com/review/list_rss/27549920' +
-                 '?key=qV9GaA_Yx53NEQ3-YfLuzX7Wgy6hPoB-MY3E2apd1_7mfXkO' +
-                 '&shelf=currently-reading';
-        $.get('http://query.yahooapis.com/v1/public/yql',
-          {q: 'select * from rss where url="'+gr_uri+'"', format: 'json'},
+        $.get('/currently-reading.json', {format: 'json'},
           function(data) {
-            if(data.query.results && data.query.results.item){
-              var book = data.query.results.item[0] || data.query.results.item;
-              var link = book.link;
+            if(data && data[0]){
+              var book = data[0];
+              var link = book.url;
               var title = book.title;
-              var author = book.author_name;
+              var author = book.authors;
               $('#reading>span').html(
                 '“<a href="' + link + '">' + title + '</a>” ' +
                 'by <em>' + author + '</em>.'
@@ -311,7 +307,6 @@
           }
         );
         // Currently playing on last.fm
-        lf_uri = 'http://ws.audioscrobbler.com/1.0/user/TinyGuy/recenttracks.rss'
         $.get('/recent-tracks.json', {format: 'json'},
           function(data) {
             if(data && data[0]) {
