@@ -142,7 +142,6 @@ app.use(function *(next) {
 app.use(function *(next) {
   this.caching = /\.json$/.test(this.path);
   this.cacheName = this.path.replace(/\/+/, "") || 'not-cached';
-  console.log(this.cacheName, this.caching, this.path);
   yield next;
 });
 app.use(fileCache({

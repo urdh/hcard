@@ -290,7 +290,7 @@
           zoomControl: false
         });
         // Currently reading on Goodreads (Note: public api key is from rss feed link)
-        $.get('/currently-reading.json', {format: 'json'},
+        $.get('/currently-reading.json', {},
           function(data) {
             if(data && data[0]){
               var book = data[0];
@@ -307,7 +307,7 @@
           }
         );
         // Currently playing on last.fm
-        $.get('/recent-tracks.json', {format: 'json'},
+        $.get('/recent-tracks.json', {},
           function(data) {
             if(data && data[0]) {
               var track = data[0];
@@ -324,7 +324,7 @@
           }
         );
         // Most recent photo from 500px
-        $.get('/recent-photos.json', {format: 'json'},
+        $.get('/recent-photos.json', {},
           function(data) {
             if(data && data[0]){
               var photo = data[0];
@@ -341,7 +341,7 @@
           }
         );
         // Most recent commit on Github
-        $.get('/recent-commits.json', {format: 'json'},
+        $.get('/recent-commits.json', {},
           function(data) {
             if(data && data[0]){
               var commit = data[0];
