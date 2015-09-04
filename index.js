@@ -74,10 +74,11 @@ function getGithubCommits() {
     return [].concat.apply([], result.filter(function(item) {
       return item['type'] == 'PushEvent';
     }).map(function(item) {
+      var repo = item['repo']['name'];
       return item['payload']['commits'].map(function(subitem) {
         return {
           'sha': subitem['sha'],
-          'url': subitem['url'],
+          'url': 'http://github.com/' + repo + '/commit/' + subitem['sha'],
           'message': subitem['message'].split("\n")[0],
           'repo': item['repo']['name'],
           'date': item['created_at']
