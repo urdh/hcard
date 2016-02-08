@@ -14,7 +14,7 @@ install:
   - npm install html5-lint
 
 script:
-  - htmlproof public/
+  - htmlproof public/ --url-ignore 'https://linkedin.com/in/simonsigurdhsson/' # Looks like LinkedIn has some dumb scrape filter going on
   - htmlproof errors/
   - ./html5check.sh
 
