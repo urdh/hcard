@@ -1,6 +1,6 @@
-language: ruby
-rvm:
-  - 2.1.1
+language: node_js
+node_js:
+  - "6"
 
 sudo: false
 cache: bundler
@@ -12,11 +12,13 @@ before_install:
 install:
   - gem install html-proofer
   - npm install html5-lint
+  - npm install npm-check
 
 script:
   - htmlproof public/ --url-ignore 'https://linkedin.com/in/simonsigurdhsson/' # Looks like LinkedIn has some dumb scrape filter going on
   - htmlproof errors/
   - ./html5check.sh
+  - npm-check
 
 
 after_success:

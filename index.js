@@ -1,4 +1,4 @@
-var app = require('koa')();
+var koa = require('koa');
 var staticCache = require('koa-static-cache');
 var fileCache = require('koa-file-cache');
 
@@ -68,8 +68,8 @@ function getCurrentBook() {
 }
 
 function getGithubCommits() {
-  var github = new GitHubApi({version: '3.0.0', protocol: 'https'});
-  var getEvents = Promise.promisify(github.events.getFromUserPublic, github.events);
+  var github = new GitHubApi({protocol: 'https'});
+  var getEvents = Promise.promisify(github.activity.getEventsForUserPublic, github.activity);
   return getEvents({user: 'urdh'}).then(function(result) {
     return [].concat.apply([], result.filter(function(item) {
       return item['type'] == 'PushEvent';
@@ -85,7 +85,7 @@ function getGithubCommits() {
         };
       });
     }));
-  }).catch(function() {
+  }).catch(function(error) {
     return {};
   });
 }
@@ -108,7 +108,8 @@ function get500pxPhotos() {
 }
 
 // First, some "top-layer" middlewares
-app.use(require('koa-helmet').defaults());
+var app = new koa();
+app.use(require('koa-helmet')());
 app.use(require('koa-conditional-get')());
 app.use(require('koa-etag')());
 app.use(require('koa-compress')());

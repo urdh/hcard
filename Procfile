@@ -1,1 +1,1 @@
-web: node --harmony-generators index.js
+web: node --harmony index.js
