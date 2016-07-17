@@ -10,14 +10,13 @@ before_install:
   - wget -O /dev/null http://validator.nu
 
 install:
-  - gem install html-proofer
-  - npm install html5-lint
   - npm install npm-check
 
+before_script:
+  - npm install
+
 script:
-  - htmlproof public/ --url-ignore 'https://linkedin.com/in/simonsigurdhsson/' # Looks like LinkedIn has some dumb scrape filter going on
-  - htmlproof errors/
-  - ./html5check.sh
+  - npm test
   - npm-check
 
 

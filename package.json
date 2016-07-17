@@ -5,6 +5,7 @@
   "repository": "https://github.com/urdh/hcard",
   "main": "index.js",
   "scripts": {
+    "test": "node tests.js",
     "start": "node index.js"
   },
   "dependencies": {
@@ -29,5 +30,11 @@
   "keywords": [],
   "author": "Simon Sigurdhsson",
   "contributors": [],
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "broken-link-checker": "^0.7.2",
+    "html5-lint": "^0.2.5",
+    "jslint": "^0.10.1",
+    "tape": "^4.6.0"
+  }
 }

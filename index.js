@@ -12,18 +12,19 @@ var path = require('path');
 var fs = require('mz/fs');
 
 function getRecentTracks() {
+  "use strict";
   var lastfm = new LastfmApi({
     api_key: process.env.LASTFM_API_KEY || '',
     secret: process.env.LASTFM_SECRET || ''
   });
-  var getRecentTracks = Promise.promisify(lastfm.user.getRecentTracks, lastfm.user);
-  return getRecentTracks({user: 'TinyGuy'}).then(function (result) {
-    return [].concat.apply([], result['track'].map(function(item) {
+  var apiGetRecentTracks = Promise.promisify(lastfm.user.getRecentTracks, lastfm.user);
+  return apiGetRecentTracks({user: 'TinyGuy'}).then(function (result) {
+    return [].concat.apply([], result.track.map(function(item) {
       return {
-        'artist': item['artist']['#text'],
-        'title': item['name'],
-        'url': item['url'],
-        'date': new Date(item['date']['uts'] * 1000).toISOString()
+        'artist': item.artist['#text'],
+        'title': item.name,
+        'url': item.url,
+        'date': new Date(item.date.uts * 1000).toISOString()
       };
     }));
   }).catch(function() {
@@ -32,6 +33,7 @@ function getRecentTracks() {
 }
 
 function getCurrentBook() {
+  "use strict";
   var goodreads = new GoodreadsApi.client({
     key: process.env.GOODREADS_API_KEY || '',
     secret: process.env.GOODREADS_SECRET || ''
@@ -43,6 +45,7 @@ function getCurrentBook() {
   // second argument", the callback only accepting one argument containing data.
   return getBooks({userID: '27549920', shelf: 'currently-reading'}).then(function(){
     // Data should be here, but it isn't.
+    return {};
   }).catch(function(result) {
     // Here's the data.
     return [].concat.apply([], result.GoodreadsResponse.books.map(function(item) {
@@ -51,10 +54,12 @@ function getCurrentBook() {
           return subsubitem.name[0] +
             ((subsubitem.role[0] != '') ? (' (' + subsubitem.role[0] + ')') : '');
         }).reduce(function(prev, curr, idx, arr) {
-          if(arr.length <= 1)
+          if(arr.length <= 1) {
             return curr;
-          if(idx == arr.length - 1)
+          }
+          if(idx == arr.length - 1) {
             return prev + ' and ' + curr;
+          }
           return prev + ', ' + curr;
         }, '');
         return {
@@ -68,20 +73,21 @@ function getCurrentBook() {
 }
 
 function getGithubCommits() {
+  "use strict";
   var github = new GitHubApi({protocol: 'https'});
   var getEvents = Promise.promisify(github.activity.getEventsForUserPublic, github.activity);
   return getEvents({user: 'urdh'}).then(function(result) {
     return [].concat.apply([], result.filter(function(item) {
-      return item['type'] == 'PushEvent';
+      return item.type == 'PushEvent';
     }).map(function(item) {
-      var repo = item['repo']['name'];
-      return item['payload']['commits'].map(function(subitem) {
+      var repo = item.repo.name;
+      return item.payload.commits.map(function(subitem) {
         return {
-          'sha': subitem['sha'],
-          'url': 'http://github.com/' + repo + '/commit/' + subitem['sha'],
-          'message': subitem['message'].split("\n")[0],
-          'repo': item['repo']['name'],
-          'date': item['created_at']
+          'sha': subitem.sha,
+          'url': 'http://github.com/' + repo + '/commit/' + subitem.sha,
+          'message': subitem.message.split("\n")[0],
+          'repo': item.repo.name,
+          'date': item.created_at
         };
       });
     }));
@@ -91,15 +97,16 @@ function getGithubCommits() {
 }
 
 function get500pxPhotos() {
+  "use strict";
   var api500 = new Api500px(process.env.PX500_API_KEY || '');
   var getPhotos = Promise.promisify(api500.photos.getByUsername, api500.photos);
   return getPhotos('urdh', {sort: 'created_at'}).then(function(result) {
-    return [].concat.apply([], result['photos'].map(function(item) {
+    return [].concat.apply([], result.photos.map(function(item) {
       return {
-        'url': 'http://500px.com' + item['url'],
-        'title': item['name'],
-        'date': item['taken_at'],
-        'camera': item['camera']
+        'url': 'http://500px.com' + item.url,
+        'title': item.name,
+        'date': item.taken_at,
+        'camera': item.camera
       };
     }));
   }).catch(function() {
