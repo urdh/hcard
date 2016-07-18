@@ -5,10 +5,6 @@ node_js:
 sudo: false
 cache: bundler
 
-# Make build error instead of fail when validator.nu is down
-before_install:
-  - wget -O /dev/null http://validator.nu
-
 install:
   - npm install npm-check
 

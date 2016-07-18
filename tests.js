@@ -2,7 +2,7 @@ var fs = require('fs');
 var test = require('tape');
 var lint = require('html5-lint');
 var blc = require('broken-link-checker');
-var node_jslint = require('jslint');
+var JSHINT = require('jshint').JSHINT;
 
 var files = {
   'html': [
@@ -61,7 +61,7 @@ test('Broken links', function (t) {
           },
           link: function (result){
             if(result.broken) {
-              if(result.brokenReason == "BLC_INVALID") {
+              if(result.brokenReason === "BLC_INVALID") {
                 st.skip(result.url.original + ' (' + blc[result.brokenReason] + ')');
               } else if(exceptions.indexOf(result.url.original) != -1) {
                 st.skip(result.url.original + ' (Exception list)');
@@ -82,25 +82,24 @@ test('Broken links', function (t) {
   t.end();
 });
 
-test('JSlint', function (t) {
-  var JSLINT = node_jslint.load("latest");
+test('JSHint', function (t) {
   files.js.forEach(function (file) {
-    t.test('JSlint: ' + file, function (st) {
+    t.test('JSHint: ' + file, function (st) {
       fs.readFile(file, 'utf8', function (err, js) {
         if(err) {
           st.fail('Could not read file!');
           return;
         }
 
-        var ok = JSLINT(js, {
-          "indent": 2,
-          "browser": false,
-          "node": true
+        // TODO: read the options from .jshintrc
+        var ok = JSHINT(js, {
+          "indent":    2,
+          "browser":   false,
+          "node":      true,
+          "esversion": 6
         });
-        var result = JSLINT.data();
-        if (result.ok === undefined) {
-          result.ok = ok;
-        }
+        var result = JSHINT.data();
+        result.errors = result.errors || [];
 
         function row(e) {
             return e.line;
@@ -108,24 +107,14 @@ test('JSlint', function (t) {
         function col(e) {
             return (e.character || e.column);
         }
-        function evidence(e) {
-            return e.evidence || (lint.lines && lint.lines[e.line]) || '';
-        }
         function message(e) {
-            return e.reason || e.message;
+            return e.reason + '(' + e.code + ')';
         }
 
-        if(result.errors) {
-          result.errors.forEach(function (e) {
-            st.comment('Linter error: ' + file + ':' + row(e) + ':' + col(e) + ': ' + message(e));
-          });
-        }
-        if(result.warnings) {
-          result.warnings.forEach(function (e) {
-            st.comment('Linter warning: ' + file + ':' + row(e) + ':' + col(e) + ': ' + message(e));
-          });
-        }
-        st.equal(result.ok, true, 'No JSlint messages in ' + file);
+        result.errors.forEach(function (e) {
+          st.comment('Linter error: ' + file + ':' + row(e) + ':' + col(e) + ': ' + message(e));
+        });
+        st.equal(result.errors.length, 0, 'No JSHint messages in ' + file);
       });
       st.end();
     });

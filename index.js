@@ -52,7 +52,7 @@ function getCurrentBook() {
       return item.book.map(function(subitem) {
         var authors = subitem.authors[0].author.map(function(subsubitem) {
           return subsubitem.name[0] +
-            ((subsubitem.role[0] != '') ? (' (' + subsubitem.role[0] + ')') : '');
+            ((subsubitem.role[0] !== '') ? (' (' + subsubitem.role[0] + ')') : '');
         }).reduce(function(prev, curr, idx, arr) {
           if(arr.length <= 1) {
             return curr;
@@ -192,18 +192,18 @@ function gone(uri) {
     } else {
       yield next;
     }
-  }
+  };
 }
 function moved(uri, target) {
   return function *(next){
     var re = pathToRegexp(uri);
-    if(m = re.exec(this.path)) {
+    if(re.exec(this.path)) {
       this.set('Location', this.path.replace(re, target));
       this.status = 301;
     } else {
       yield next;
     }
-  }
+  };
 }
 function multiple(uri, ident) {
   return function *(next){
@@ -215,7 +215,7 @@ function multiple(uri, ident) {
     } else {
       yield next;
     }
-  }
+  };
 }
 // These are gone forever
 app.use(gone('/archives/*'));
