@@ -5,7 +5,7 @@
   "repository": "https://github.com/urdh/hcard",
   "main": "index.js",
   "scripts": {
-    "test": "node tests.js",
+    "test": "tap tests.js",
     "start": "node index.js"
   },
   "dependencies": {
@@ -35,6 +35,6 @@
     "broken-link-checker": "^0.7.2",
     "html5-lint": "^0.2.5",
     "jshint": "^2.9.2",
-    "tape": "^4.6.0"
+    "tap": "^6.2.0"
   }
 }
