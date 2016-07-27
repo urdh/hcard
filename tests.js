@@ -33,10 +33,10 @@ tap.test('HTML5-lint', function (t) {
 
         lint(html, function (err, results) {
           if(err) {
-            throw new Error(err);
+            st.assert(err, 'Cannot lint: ' + err.message, {skip: true});
+          } else {
+            st.equal(results.messages.length, 0, 'No HTML5-lint messages in ' + file);
           }
-
-          st.equal(results.messages.length, 0, 'No HTML5-lint messages in ' + file);
           st.end();
         });
       });
