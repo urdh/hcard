@@ -1,114 +1,11 @@
-var app = require('koa')();
-var staticCache = require('koa-static-cache');
-var fileCache = require('koa-file-cache');
-
+var callbacks = require('./callbacks.js');
 var pathToRegexp = require('path-to-regexp');
-var Promise = require('bluebird');
-var GitHubApi = require('github');
-var GoodreadsApi = require('goodreads');
-var LastfmApi = require('lastfmapi');
-var Api500px = require('500px');
 var path = require('path');
 var fs = require('mz/fs');
 
-function getRecentTracks() {
-  var lastfm = new LastfmApi({
-    api_key: process.env.LASTFM_API_KEY || '',
-    secret: process.env.LASTFM_SECRET || ''
-  });
-  var getRecentTracks = Promise.promisify(lastfm.user.getRecentTracks, lastfm.user);
-  return getRecentTracks({user: 'TinyGuy'}).then(function (result) {
-    return [].concat.apply([], result['track'].map(function(item) {
-      return {
-        'artist': item['artist']['#text'],
-        'title': item['name'],
-        'url': item['url'],
-        'date': new Date(item['date']['uts'] * 1000).toISOString()
-      };
-    }));
-  }).catch(function() {
-    return {};
-  });
-}
-
-function getCurrentBook() {
-  var goodreads = new GoodreadsApi.client({
-    key: process.env.GOODREADS_API_KEY || '',
-    secret: process.env.GOODREADS_SECRET || ''
-  });
-  var getBooks = Promise.promisify(goodreads.getSingleShelf, goodreads);
-  // Shitty goodreads node module is shitty and doesn't "conform to node.js
-  // convention of accepting a callback as last argument and calling that
-  // callback with error as the first argument and success value on the
-  // second argument", the callback only accepting one argument containing data.
-  return getBooks({userID: '27549920', shelf: 'currently-reading'}).then(function(){
-    // Data should be here, but it isn't.
-  }).catch(function(result) {
-    // Here's the data.
-    return [].concat.apply([], result.GoodreadsResponse.books.map(function(item) {
-      return item.book.map(function(subitem) {
-        var authors = subitem.authors[0].author.map(function(subsubitem) {
-          return subsubitem.name[0] +
-            ((subsubitem.role[0] != '') ? (' (' + subsubitem.role[0] + ')') : '');
-        }).reduce(function(prev, curr, idx, arr) {
-          if(arr.length <= 1)
-            return curr;
-          if(idx == arr.length - 1)
-            return prev + ' and ' + curr;
-          return prev + ', ' + curr;
-        }, '');
-        return {
-          'title': subitem.title[0],
-          'authors': authors,
-          'url': subitem.link[0]
-        };
-      });
-    }));
-  });
-}
-
-function getGithubCommits() {
-  var github = new GitHubApi({version: '3.0.0', protocol: 'https'});
-  var getEvents = Promise.promisify(github.events.getFromUserPublic, github.events);
-  return getEvents({user: 'urdh'}).then(function(result) {
-    return [].concat.apply([], result.filter(function(item) {
-      return item['type'] == 'PushEvent';
-    }).map(function(item) {
-      var repo = item['repo']['name'];
-      return item['payload']['commits'].map(function(subitem) {
-        return {
-          'sha': subitem['sha'],
-          'url': 'http://github.com/' + repo + '/commit/' + subitem['sha'],
-          'message': subitem['message'].split("\n")[0],
-          'repo': item['repo']['name'],
-          'date': item['created_at']
-        };
-      });
-    }));
-  }).catch(function() {
-    return {};
-  });
-}
-
-function get500pxPhotos() {
-  var api500 = new Api500px(process.env.PX500_API_KEY || '');
-  var getPhotos = Promise.promisify(api500.photos.getByUsername, api500.photos);
-  return getPhotos('urdh', {sort: 'created_at'}).then(function(result) {
-    return [].concat.apply([], result['photos'].map(function(item) {
-      return {
-        'url': 'http://500px.com' + item['url'],
-        'title': item['name'],
-        'date': item['taken_at'],
-        'camera': item['camera']
-      };
-    }));
-  }).catch(function() {
-    return {};
-  });
-}
-
 // First, some "top-layer" middlewares
-app.use(require('koa-helmet').defaults());
+var app = new (require('koa'))();
+app.use(require('koa-helmet')());
 app.use(require('koa-conditional-get')());
 app.use(require('koa-etag')());
 app.use(require('koa-compress')());
@@ -145,7 +42,7 @@ app.use(function *(next) {
   this.cacheName = this.path.replace(/\/+/, "") || 'not-cached';
   yield next;
 });
-app.use(fileCache({
+app.use(require('koa-file-cache')({
   cacheTime: 5 * 60 * 1000,
   folder: '/tmp',
   gzip: false,
@@ -159,16 +56,29 @@ app.use(function *(next) {
   var ghre = pathToRegexp('/recent-commits.json');
   var pxre = pathToRegexp('/recent-photos.json');
   if(lfmre.exec(this.path)) {
-    if(!this.body) this.body = yield getRecentTracks();
+    if(!this.body) this.body = yield callbacks.getRecentTracks({
+      key:    process.env.LASTFM_API_KEY || '',
+      secret: process.env.LASTFM_SECRET  || '',
+      user:   'TinyGuy'
+    });
     this.type = 'json';
   } else if(grre.exec(this.path)) {
-    if(!this.body) this.body = yield getCurrentBook();
+    if(!this.body) this.body = yield callbacks.getCurrentBook({
+      key:    process.env.GOODREADS_API_KEY || '',
+      secret: process.env.GOODREADS_SECRET  || '',
+      user:   '27549920'
+    });
     this.type = 'json';
   } else if(ghre.exec(this.path)) {
-    if(!this.body) this.body = yield getGithubCommits();
+    if(!this.body) this.body = yield callbacks.getGithubCommits({
+      user: 'urdh'
+    });
     this.type = 'json';
   } else if(pxre.exec(this.path)) {
-    if(!this.body) this.body = yield get500pxPhotos();
+    if(!this.body) this.body = yield callbacks.get500pxPhotos({
+      key:  process.env.PX500_API_KEY || '',
+      user: 'urdh'
+    });
     this.type = 'json';
   } else {
     yield next;
@@ -184,18 +94,18 @@ function gone(uri) {
     } else {
       yield next;
     }
-  }
+  };
 }
 function moved(uri, target) {
   return function *(next){
     var re = pathToRegexp(uri);
-    if(m = re.exec(this.path)) {
+    if(re.exec(this.path)) {
       this.set('Location', this.path.replace(re, target));
       this.status = 301;
     } else {
       yield next;
     }
-  }
+  };
 }
 function multiple(uri, ident) {
   return function *(next){
@@ -207,8 +117,9 @@ function multiple(uri, ident) {
     } else {
       yield next;
     }
-  }
+  };
 }
+
 // These are gone forever
 app.use(gone('/archives/*'));
 app.use(gone('/portfolio/*'));
@@ -239,7 +150,7 @@ app.use(moved('/chscite/:uri*',   'http://projects.sigurdhsson.org/chscite/$1'))
 app.use(moved('/streck/:uri*',    'http://projects.sigurdhsson.org/streck/$1'));
 
 // Finally, the static cache serving middleware serving the hCard
-app.use(staticCache(path.join(__dirname, 'public'), {
+app.use(require('koa-static-cache')(path.join(__dirname, 'public'), {
   maxAge: 28 * 24 * 60 * 60,
   buffer: process.env.DYNT ? true : false,
   gzip: false, // compress middleware does this

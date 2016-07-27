@@ -1,25 +1,31 @@
-language: ruby
-rvm:
-  - 2.1.1
+language: node_js
+node_js:
+  - "6"
 
 sudo: false
-cache: bundler
 
-# Make build error instead of fail when validator.nu is down
-before_install:
-  - wget -O /dev/null http://validator.nu
+env:
+  global:
+    - secure: "FakRiA51uV7pQOzCbE7YXpaP0srlYbsUGtQBmHRnlImtEs7rCYBJwvTGEqaTPjIkpm/IvDvU9LHQCKZ8BhwAJ7sfGHxwreTawJ3rdIVVPJuBFtIugeBKFy3sWVWRgjMnt/y7vYllV7uNk3orMX1SMe3Hvs0lSGfzDJzW6fkkZIo="
+    - secure: "YOjP+BpC1WTOwU++1fQ92GPLixWS1EVGNIYsgWfgnpU637jygCo00CNnRiKeoXqX/AAnFjJPTrkHqHbTMFE/1GvGpesBYB2UsveOba3nSGJmlOfGy8hHYoiToKkemepswJ/84Om4AgxOBQ7OzkZz+bwKCPWkALsrQehoLkUl13E="
+    - secure: "gYVWn7n2m40mZDdli6F4zPkjqyq6AkcG9zFNFDQggDhxVYkmsQ2PaIMDEZkT4XaTa1YGYou9Q9t8BBb7Eu8xSUp07dbEUIHTp3IUElCA6t6T1AYDciDOMpChGj9zMufJhKl2LdUBEYvUZ5gCVSDN2bOk6bU6bPK47snQfBShxfg="
+    - secure: "IfU/21eTfjz5Q/Q7r2iDE5Q0ZfNfK+U+1KHa1xum80mGOw6nf03h4CKfV0PJJMSWg4XIDJjPJ8eE60Az8j9MJMJlj40IIb68czuYcx4YFxQ3IAsbI+NldpFn03mcoj+86bn6miLcsnVYVmNRcEUyq7H0CBKCs7LmXd03+EU/uE8="
+    - secure: "D34yO9PaPKzr9UVB7EUwmWi5cWMGU7+1JioSu3PDsO4QFyKnAqjkJxa/3JefmW/PYeTC/fCGv1F1pn+I+YnzF+Os6xpiHF9CxZ/BI2sJtKi4BOxs77fPJV55NrJJ9Kdffa3HsVIOxtJu0vS+eCMe7kfksKR2K2LwIMQ/eSF3PvM="
+    - secure: "WhQ61s+PVsJXlB/zwEelg5dFqmcxFCNcxQUZ8cUAbpvfgZTltVekh6C1jct89dHfEPS2oZeuPQcBG2P0TrgvXGLiRE/b9JUPVZcvIazTOrXfA4PH0hWmJ9SYyV/XYQDtxzf4JYnB4C/s1qjhHgHUZJPoIhVgEVBy8pUPFX+EdFk="
 
 install:
-  - gem install html-proofer
-  - npm install html5-lint
+  - npm install npm-check
+  - npm install codecov
+
+before_script:
+  - npm install
 
 script:
-  - htmlproof public/ --url-ignore 'https://linkedin.com/in/simonsigurdhsson/' # Looks like LinkedIn has some dumb scrape filter going on
-  - htmlproof errors/
-  - ./html5check.sh
-
+  - npm test
+  - npm-check
 
 after_success:
+  - tap --coverage-report=lcov | codecov
   - 'curl -s http://google.com/ping\?sitemap=http:%3A%2F%2Fsigurdhsson.org%2Fsitemap.xml > /dev/null'
 
 deploy:
