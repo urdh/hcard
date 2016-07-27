@@ -15,6 +15,7 @@ env:
 
 install:
   - npm install npm-check
+  - npm install codecov
 
 before_script:
   - npm install
@@ -23,8 +24,8 @@ script:
   - npm test
   - npm-check
 
-
 after_success:
+  - tap --coverage-report=lcov | codecov
   - 'curl -s http://google.com/ping\?sitemap=http:%3A%2F%2Fsigurdhsson.org%2Fsitemap.xml > /dev/null'
 
 deploy:

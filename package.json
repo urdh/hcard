@@ -5,7 +5,7 @@
   "repository": "https://github.com/urdh/hcard",
   "main": "index.js",
   "scripts": {
-    "test": "tap tests.js",
+    "test": "tap tests.js --coverage",
     "start": "node index.js"
   },
   "dependencies": {
