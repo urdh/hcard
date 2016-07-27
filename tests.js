@@ -4,6 +4,7 @@ var lint = require('html5-lint');
 var blc = require('broken-link-checker');
 var JSHINT = require('jshint').JSHINT;
 var callbacks = require('./callbacks.js');
+var index = require('./index.js');
 
 var files = {
   'html': [
