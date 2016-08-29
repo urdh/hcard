@@ -10,8 +10,8 @@
   },
   "dependencies": {
     "500px": "^0.5.1",
-    "bluebird": "^3.4.1",
-    "github": "^2.2.0",
+    "bluebird": "^3.4.3",
+    "github": "^2.5.2",
     "goodreads": "0.0.4",
     "koa": "^2.0.0",
     "koa-compress": "^1.0.9",
@@ -32,9 +32,9 @@
   "contributors": [],
   "license": "MIT",
   "devDependencies": {
-    "broken-link-checker": "^0.7.2",
+    "broken-link-checker": "^0.7.3",
     "html5-lint": "^0.2.5",
-    "jshint": "^2.9.2",
-    "tap": "^6.2.0"
+    "jshint": "^2.9.3",
+    "tap": "^7.0.0"
   }
 }
