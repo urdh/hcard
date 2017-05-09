@@ -11,36 +11,36 @@ app.use(require('koa-etag')());
 app.use(require('koa-compress')());
 
 // Then we handle errors
-app.use(function *(next) {
+app.use(async (ctx, next) => {
   try {
-    yield next;
-    if(this.status == 404) {
-      this.body = fs.readFileSync(path.join(__dirname, 'errors', '404.html'));
-      this.type = 'html';
-      this.status = 404;
+    await next();
+    if(ctx.status == 404) {
+      ctx.body = await fs.readFile(path.join(__dirname, 'errors', '404.html'));
+      ctx.type = 'html';
+      ctx.status = 404;
     }
-    if(this.status == 410) {
-      this.body = fs.readFileSync(path.join(__dirname, 'errors', '410.html'));
-      this.type = 'html';
-      this.status = 410;
+    if(ctx.status == 410) {
+      ctx.body = await fs.readFile(path.join(__dirname, 'errors', '410.html'));
+      ctx.type = 'html';
+      ctx.status = 410;
     }
   } catch (err) {
-    this.status = err.status || 500;
-    if(this.status == 500) {
-      this.body = fs.readFileSync(path.join(__dirname, 'errors', '500.html'));
-      this.type = 'html';
-      this.status = 500;
+    ctx.status = err.status || 500;
+    if(ctx.status == 500) {
+      ctx.body = await fs.readFile(path.join(__dirname, 'errors', '500.html'));
+      ctx.type = 'html';
+      ctx.status = 500;
     }
     console.log(err);
-    this.app.emit('error', err, this);
+    ctx.app.emit('error', err, this);
   }
 });
 
 // For caching the expensive API calls
-app.use(function *(next) {
-  this.caching = /\.json$/.test(this.path);
-  this.cacheName = this.path.replace(/\/+/, "") || 'not-cached';
-  yield next;
+app.use(async (ctx, next) => {
+  ctx.caching = /\.json$/.test(ctx.path);
+  ctx.cacheName = ctx.path.replace(/\/+/, "") || 'not-cached';
+  await next();
 });
 app.use(require('koa-file-cache')({
   cacheTime: 5 * 60 * 1000,
@@ -50,72 +50,72 @@ app.use(require('koa-file-cache')({
 }));
 
 // This is just providing a very limited parts of some APIs
-app.use(function *(next) {
+app.use(async (ctx, next) => {
   var lfmre = pathToRegexp('/recent-tracks.json');
   var grre = pathToRegexp('/currently-reading.json');
   var ghre = pathToRegexp('/recent-commits.json');
   var pxre = pathToRegexp('/recent-photos.json');
-  if(lfmre.exec(this.path)) {
-    if(!this.body) this.body = yield callbacks.getRecentTracks({
+  if(lfmre.exec(ctx.path)) {
+    if(!ctx.body) ctx.body = await callbacks.getRecentTracks({
       key:    process.env.LASTFM_API_KEY || '',
       secret: process.env.LASTFM_SECRET  || '',
       user:   'TinyGuy'
     });
-    this.type = 'json';
-  } else if(grre.exec(this.path)) {
-    if(!this.body) this.body = yield callbacks.getCurrentBook({
+    ctx.type = 'json';
+  } else if(grre.exec(ctx.path)) {
+    if(!ctx.body) ctx.body = await callbacks.getCurrentBook({
       key:    process.env.GOODREADS_API_KEY || '',
       secret: process.env.GOODREADS_SECRET  || '',
       user:   '27549920'
     });
-    this.type = 'json';
-  } else if(ghre.exec(this.path)) {
-    if(!this.body) this.body = yield callbacks.getGithubCommits({
+    ctx.type = 'json';
+  } else if(ghre.exec(ctx.path)) {
+    if(!ctx.body) ctx.body = await callbacks.getGithubCommits({
       user: 'urdh'
     });
     this.type = 'json';
-  } else if(pxre.exec(this.path)) {
-    if(!this.body) this.body = yield callbacks.get500pxPhotos({
+  } else if(pxre.exec(ctx.path)) {
+    if(!ctx.body) ctx.body = await callbacks.get500pxPhotos({
       key:  process.env.PX500_API_KEY || '',
       user: 'urdh'
     });
-    this.type = 'json';
+    ctx.type = 'json';
   } else {
-    yield next;
+    await next();
   }
 });
 
 // Then, our route middlewares for redirects and missing pages
 function gone(uri) {
-  return function*(next) {
+  return async (ctx, next) => {
     var re = pathToRegexp(uri);
-    if(re.exec(this.path)) {
-      this.status = 410;
+    if(re.exec(ctx.path)) {
+      ctx.status = 410;
     } else {
-      yield next;
+      await next();
     }
   };
 }
 function moved(uri, target) {
-  return function *(next){
+  return async (ctx, next) => {
     var re = pathToRegexp(uri);
-    if(re.exec(this.path)) {
-      this.set('Location', this.path.replace(re, target));
-      this.status = 301;
+    if(re.exec(ctx.path)) {
+      ctx.set('Location', ctx.path.replace(re, target));
+      ctx.status = 301;
     } else {
-      yield next;
+      await next();
     }
   };
 }
 function multiple(uri, ident) {
-  return function *(next){
+  return async (ctx, next) => {
     var re = pathToRegexp(uri);
-    if(re.exec(this.path)) {
-      this.body = fs.readFileSync(path.join(__dirname, 'errors', '300-' + ident + '.html'));
-      this.type = 'html';
-      this.status = 300;
+    if(re.exec(ctx.path)) {
+      ctx.body = fs.readFileSync(path.join(__dirname, 'errors', '300-' + ident + '.html'));
+      ctx.type = 'html';
+      ctx.status = 300;
     } else {
-      yield next;
+      await next();
     }
   };
 }

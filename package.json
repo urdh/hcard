@@ -10,19 +10,19 @@
   },
   "dependencies": {
     "500px": "^0.5.1",
-    "bluebird": "^3.4.6",
-    "github": "^2.6.0",
-    "goodreads": "0.0.4",
-    "koa": "^2.0.0",
-    "koa-compress": "^1.0.9",
-    "koa-conditional-get": "^1.0.3",
-    "koa-etag": "^2.1.1",
+    "bluebird": "^3.5.0",
+    "github": "^9.2.0",
+    "goodreads": "^0.1.0",
+    "koa": "^2.2.0",
+    "koa-compress": "^2.0.0",
+    "koa-conditional-get": "^2.0.0",
+    "koa-etag": "^3.0.0",
     "koa-file-cache": "^0.3.1",
-    "koa-helmet": "^2.0.0",
-    "koa-static-cache": "^3.1.7",
+    "koa-helmet": "^3.1.0",
+    "koa-static-cache": "^5.0.1",
     "lastfmapi": "^0.1.1",
-    "mz": "^2.4.0",
-    "path-to-regexp": "^1.5.3"
+    "mz": "^2.6.0",
+    "path-to-regexp": "^1.7.0"
   },
   "engines": {
     "node": "^6.0.0"
@@ -32,9 +32,9 @@
   "contributors": [],
   "license": "MIT",
   "devDependencies": {
-    "broken-link-checker": "^0.7.3",
-    "html5-lint": "^0.2.5",
-    "jshint": "^2.9.3",
-    "tap": "^7.0.0"
+    "broken-link-checker": "^0.7.4",
+    "html5-lint": "^0.3.0",
+    "jshint": "^2.9.4",
+    "tap": "^10.3.2"
   }
 }

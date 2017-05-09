@@ -74,8 +74,8 @@ Callbacks.prototype.getGithubCommits = function(options) {
   "use strict";
   var github = new GitHubApi({protocol: 'https'});
   var getEvents = Promise.promisify(github.activity.getEventsForUserPublic, {context: github.activity});
-  return getEvents({user: options.user}).then(function(result) {
-    return [].concat.apply([], result.filter(function(item) {
+  return getEvents({username: options.user}).then(function(result) {
+    return [].concat.apply([], result.data.filter(function(item) {
       return item.type == 'PushEvent';
     }).map(function(item) {
       var repo = item.repo.name;
