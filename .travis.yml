@@ -23,7 +23,7 @@ before_script:
 
 script:
   - npm test
-  - npm-check
+  - npm-check --ignore 'eslint-config-plugin:node'
 
 after_success:
   - tap --coverage-report=text-lcov | codacy-coverage --verbose
