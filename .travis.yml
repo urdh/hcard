@@ -13,9 +13,6 @@ env:
     - secure: "D34yO9PaPKzr9UVB7EUwmWi5cWMGU7+1JioSu3PDsO4QFyKnAqjkJxa/3JefmW/PYeTC/fCGv1F1pn+I+YnzF+Os6xpiHF9CxZ/BI2sJtKi4BOxs77fPJV55NrJJ9Kdffa3HsVIOxtJu0vS+eCMe7kfksKR2K2LwIMQ/eSF3PvM="
     - secure: "WhQ61s+PVsJXlB/zwEelg5dFqmcxFCNcxQUZ8cUAbpvfgZTltVekh6C1jct89dHfEPS2oZeuPQcBG2P0TrgvXGLiRE/b9JUPVZcvIazTOrXfA4PH0hWmJ9SYyV/XYQDtxzf4JYnB4C/s1qjhHgHUZJPoIhVgEVBy8pUPFX+EdFk="
 
-install:
-  - npm install codecov
-
 before_script:
   - npm install
 
@@ -24,7 +21,7 @@ script:
   - npm-check
 
 after_success:
-  - tap --coverage-report=lcov | codecov
+  - tap --coverage-report=text-lcov | codacy-coverage
   - 'curl -s http://google.com/ping\?sitemap=http:%3A%2F%2Fsigurdhsson.org%2Fsitemap.xml > /dev/null'
 
 deploy:
