@@ -7,7 +7,7 @@ var Api500px = require('500px');
 var Callbacks = function() {};
 
 Callbacks.prototype.getRecentTracks = function(options) {
-  "use strict";
+  'use strict';
   var lastfm = new LastfmApi({
     api_key: options.key,
     secret:  options.secret
@@ -28,7 +28,7 @@ Callbacks.prototype.getRecentTracks = function(options) {
 };
 
 Callbacks.prototype.getCurrentBook = function(options){
-  "use strict";
+  'use strict';
   var goodreads = new GoodreadsApi.client({
     key:    options.key,
     secret: options.secret
@@ -71,7 +71,7 @@ Callbacks.prototype.getCurrentBook = function(options){
 };
 
 Callbacks.prototype.getGithubCommits = function(options) {
-  "use strict";
+  'use strict';
   var github = new GitHubApi({protocol: 'https'});
   var getEvents = Promise.promisify(github.activity.getEventsForUserPublic, {context: github.activity});
   return getEvents({username: options.user}).then(function(result) {
@@ -83,7 +83,7 @@ Callbacks.prototype.getGithubCommits = function(options) {
         return {
           'sha': subitem.sha,
           'url': 'http://github.com/' + repo + '/commit/' + subitem.sha,
-          'message': subitem.message.split("\n")[0],
+          'message': subitem.message.split('\n')[0],
           'repo': item.repo.name,
           'date': item.created_at
         };
@@ -95,7 +95,7 @@ Callbacks.prototype.getGithubCommits = function(options) {
 };
 
 Callbacks.prototype.get500pxPhotos = function(options) {
-  "use strict";
+  'use strict';
   var api500 = new Api500px(options.key);
   var getPhotos = Promise.promisify(api500.photos.getByUsername, {context: api500.photos});
   return getPhotos(options.user, {sort: 'created_at'}).then(function(result) {

@@ -31,15 +31,15 @@ app.use(async (ctx, next) => {
       ctx.type = 'html';
       ctx.status = 500;
     }
-    console.log(err);
     ctx.app.emit('error', err, this);
   }
 });
 
 // For caching the expensive API calls
 app.use(async (ctx, next) => {
-  ctx.caching = /\.json$/.test(ctx.path);
-  ctx.cacheName = ctx.path.replace(/\/+/, "") || 'not-cached';
+  ctx.caching = /.json$/.test(ctx.path);
+  // eslint-disable-next-line optimize-regex/optimize-regex
+  ctx.cacheName = ctx.path.replace(/\/+/, '') || 'not-cached';
   await next();
 });
 app.use(require('koa-file-cache')({

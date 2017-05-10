@@ -2,9 +2,9 @@ var fs = require('fs');
 var tap = require('tap');
 var lint = require('html5-lint');
 var blc = require('broken-link-checker');
-var JSHINT = require('jshint').JSHINT;
+var ESLint = require('eslint').CLIEngine;
 var callbacks = require('./callbacks.js');
-var index = require('./index.js');
+var index = require('./index.js'); // eslint-disable-line no-unused-vars
 
 var files = {
   'html': [
@@ -61,7 +61,7 @@ tap.test('Broken links', function (t) {
           'honorRobotExclusions': false,
           'excludeInternalLinks': true
         }, {
-          html: function (tree, robots){ },
+          html: function (_tree, _robots){ },
           junk: function (result){
             if(result.excluded) {
               st.assert(result.excluded, result.url.original + ' (' + blc[result.excludedReason] + ')', {skip: true});
@@ -69,7 +69,7 @@ tap.test('Broken links', function (t) {
           },
           link: function (result){
             if(result.broken) {
-              if(result.brokenReason === "BLC_INVALID") {
+              if(result.brokenReason === 'BLC_INVALID') {
                 st.assert(result.broken, result.url.original + ' (' + blc[result.brokenReason] + ')', {skip: true});
               } else if(exceptions.indexOf(result.url.original) != -1) {
                 st.assert(result.broken, result.url.original + ' (Exception list)', {skip: true});
@@ -90,34 +90,28 @@ tap.test('Broken links', function (t) {
   });
 });
 
-// TODO: JSHint disabled until it gets ES7 support
-/*
-tap.test('JSHint', function (t) {
+tap.test('ESLint', function (t) {
+  var eslint = new ESLint({});
+
   t.plan(files.js.length);
   files.js.forEach(function (file) {
-    t.test('JSHint: ' + file, function (st) {
-      fs.readFile(file, 'utf8', function (err, js) {
-        if(err) {
-          throw new Error(err);
-        }
+    t.test('ESLint: ' + file, function (st) {
+      var report = eslint.executeOnFiles([file]);
 
-        // TODO: read the options from .jshintrc
-        var ok = JSHINT(js, {
-          "indent":    2,
-          "browser":   false,
-          "node":      true,
-          "esversion": 6
-        });
-        var result = JSHINT.data();
-        result.errors = result.errors || [];
+      var errors = report.results.map(function(result) {
+        return result.errorCount;
+      }).reduce(function (a, b) { return a + b; }, 0);
 
-        st.equal(result.errors.length, 0, 'No JSHint messages in ' + file);
-        st.end();
-      });
+      var warnings = report.results.map(function(result) {
+        return result.warningCount;
+      }).reduce(function (a, b) { return a + b; }, 0);
+
+      var issues = errors + warnings;
+      st.equal(issues, 0, 'No ESLint messages in ' + file);
+      st.end();
     });
   });
 });
-*/
 
 if(process.env.LASTFM_API_KEY && process.env.LASTFM_SECRET) {
   tap.test('Last.fm API proxy', function(t) {
