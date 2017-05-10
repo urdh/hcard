@@ -35,6 +35,7 @@
     "broken-link-checker": "^0.7.4",
     "html5-lint": "^0.3.0",
     "jshint": "^2.9.4",
+    "npm-check": "^5.4.0",
     "tap": "^10.3.2"
   }
 }

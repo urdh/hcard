@@ -14,7 +14,6 @@ env:
     - secure: "WhQ61s+PVsJXlB/zwEelg5dFqmcxFCNcxQUZ8cUAbpvfgZTltVekh6C1jct89dHfEPS2oZeuPQcBG2P0TrgvXGLiRE/b9JUPVZcvIazTOrXfA4PH0hWmJ9SYyV/XYQDtxzf4JYnB4C/s1qjhHgHUZJPoIhVgEVBy8pUPFX+EdFk="
 
 install:
-  - npm install npm-check
   - npm install codecov
 
 before_script:
