@@ -13,6 +13,10 @@ env:
     - secure: "D34yO9PaPKzr9UVB7EUwmWi5cWMGU7+1JioSu3PDsO4QFyKnAqjkJxa/3JefmW/PYeTC/fCGv1F1pn+I+YnzF+Os6xpiHF9CxZ/BI2sJtKi4BOxs77fPJV55NrJJ9Kdffa3HsVIOxtJu0vS+eCMe7kfksKR2K2LwIMQ/eSF3PvM="
     - secure: "WhQ61s+PVsJXlB/zwEelg5dFqmcxFCNcxQUZ8cUAbpvfgZTltVekh6C1jct89dHfEPS2oZeuPQcBG2P0TrgvXGLiRE/b9JUPVZcvIazTOrXfA4PH0hWmJ9SYyV/XYQDtxzf4JYnB4C/s1qjhHgHUZJPoIhVgEVBy8pUPFX+EdFk="
 
+install:
+  - npm install npm-check
+  - npm install codacy-coverage
+
 before_script:
   - npm install
 
