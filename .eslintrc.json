@@ -14,7 +14,9 @@
     "linebreak-style": ["error", "unix"],
     "quotes":          ["error", "single"],
     "semi":            ["error", "always"],
-    "optimize-regex/optimize-regex": "warn"
+    "no-unused-vars":  ["error", { "args": "all", "argsIgnorePattern": "^_" }],
+    "optimize-regex/optimize-regex": "warn",
+    "node/no-unsupported-features":  "off"
   },
   "plugins": [
     "node",

@@ -8,6 +8,10 @@
     "test": "tap tests.js --coverage",
     "start": "node index.js"
   },
+  "files": [
+    "index.js",
+    "callbacks.js"
+  ],
   "dependencies": {
     "500px": "^0.5.1",
     "bluebird": "^3.5.0",

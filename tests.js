@@ -4,7 +4,7 @@ var lint = require('html5-lint');
 var blc = require('broken-link-checker');
 var ESLint = require('eslint').CLIEngine;
 var callbacks = require('./callbacks.js');
-var index = require('./index.js');
+var index = require('./index.js'); // eslint-disable-line no-unused-vars
 
 var files = {
   'html': [
@@ -61,7 +61,7 @@ tap.test('Broken links', function (t) {
           'honorRobotExclusions': false,
           'excludeInternalLinks': true
         }, {
-          html: function (tree, robots){ },
+          html: function (_tree, _robots){ },
           junk: function (result){
             if(result.excluded) {
               st.assert(result.excluded, result.url.original + ' (' + blc[result.excludedReason] + ')', {skip: true});
@@ -69,7 +69,7 @@ tap.test('Broken links', function (t) {
           },
           link: function (result){
             if(result.broken) {
-              if(result.brokenReason === "BLC_INVALID") {
+              if(result.brokenReason === 'BLC_INVALID') {
                 st.assert(result.broken, result.url.original + ' (' + blc[result.brokenReason] + ')', {skip: true});
               } else if(exceptions.indexOf(result.url.original) != -1) {
                 st.assert(result.broken, result.url.original + ' (Exception list)', {skip: true});
