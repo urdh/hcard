@@ -14,19 +14,19 @@ app.use(require('koa-compress')());
 app.use(async (ctx, next) => {
   try {
     await next();
-    if(ctx.status == 404) {
+    if (ctx.status == 404) {
       ctx.body = await fs.readFile(path.join(__dirname, 'errors', '404.html'));
       ctx.type = 'html';
       ctx.status = 404;
     }
-    if(ctx.status == 410) {
+    if (ctx.status == 410) {
       ctx.body = await fs.readFile(path.join(__dirname, 'errors', '410.html'));
       ctx.type = 'html';
       ctx.status = 410;
     }
   } catch (err) {
     ctx.status = err.status || 500;
-    if(ctx.status == 500) {
+    if (ctx.status == 500) {
       ctx.body = await fs.readFile(path.join(__dirname, 'errors', '500.html'));
       ctx.type = 'html';
       ctx.status = 500;
@@ -55,28 +55,28 @@ app.use(async (ctx, next) => {
   var grre = pathToRegexp('/currently-reading.json');
   var ghre = pathToRegexp('/recent-commits.json');
   var pxre = pathToRegexp('/recent-photos.json');
-  if(lfmre.exec(ctx.path)) {
-    if(!ctx.body) ctx.body = await callbacks.getRecentTracks({
-      key:    process.env.LASTFM_API_KEY || '',
-      secret: process.env.LASTFM_SECRET  || '',
-      user:   'TinyGuy'
+  if (lfmre.exec(ctx.path)) {
+    if (!ctx.body) ctx.body = await callbacks.getRecentTracks({
+      key: process.env.LASTFM_API_KEY || '',
+      secret: process.env.LASTFM_SECRET || '',
+      user: 'TinyGuy'
     });
     ctx.type = 'json';
-  } else if(grre.exec(ctx.path)) {
-    if(!ctx.body) ctx.body = await callbacks.getCurrentBook({
-      key:    process.env.GOODREADS_API_KEY || '',
-      secret: process.env.GOODREADS_SECRET  || '',
-      user:   '27549920'
+  } else if (grre.exec(ctx.path)) {
+    if (!ctx.body) ctx.body = await callbacks.getCurrentBook({
+      key: process.env.GOODREADS_API_KEY || '',
+      secret: process.env.GOODREADS_SECRET || '',
+      user: '27549920'
     });
     ctx.type = 'json';
-  } else if(ghre.exec(ctx.path)) {
-    if(!ctx.body) ctx.body = await callbacks.getGithubCommits({
+  } else if (ghre.exec(ctx.path)) {
+    if (!ctx.body) ctx.body = await callbacks.getGithubCommits({
       user: 'urdh'
     });
     this.type = 'json';
-  } else if(pxre.exec(ctx.path)) {
-    if(!ctx.body) ctx.body = await callbacks.get500pxPhotos({
-      key:  process.env.PX500_API_KEY || '',
+  } else if (pxre.exec(ctx.path)) {
+    if (!ctx.body) ctx.body = await callbacks.get500pxPhotos({
+      key: process.env.PX500_API_KEY || '',
       user: 'urdh'
     });
     ctx.type = 'json';
@@ -89,7 +89,7 @@ app.use(async (ctx, next) => {
 function gone(uri) {
   return async (ctx, next) => {
     var re = pathToRegexp(uri);
-    if(re.exec(ctx.path)) {
+    if (re.exec(ctx.path)) {
       ctx.status = 410;
     } else {
       await next();
@@ -99,7 +99,7 @@ function gone(uri) {
 function moved(uri, target) {
   return async (ctx, next) => {
     var re = pathToRegexp(uri);
-    if(re.exec(ctx.path)) {
+    if (re.exec(ctx.path)) {
       ctx.set('Location', ctx.path.replace(re, target));
       ctx.status = 301;
     } else {
@@ -110,7 +110,7 @@ function moved(uri, target) {
 function multiple(uri, ident) {
   return async (ctx, next) => {
     var re = pathToRegexp(uri);
-    if(re.exec(ctx.path)) {
+    if (re.exec(ctx.path)) {
       ctx.body = fs.readFileSync(path.join(__dirname, 'errors', '300-' + ident + '.html'));
       ctx.type = 'html';
       ctx.status = 300;
@@ -136,18 +136,18 @@ app.use(moved('/latexhax/index.html', '/latexhax.html'));
 app.use(moved('/projects/latexhax.html', '/latexhax.html'));
 app.use(multiple('/latexhax.html', 'latexhax'));
 // These are on the current blog
-app.use(moved('/atom.xml',      'http://blog.sigurdhsson.org/atom.xml'));
+app.use(moved('/atom.xml', 'http://blog.sigurdhsson.org/atom.xml'));
 app.use(moved('/2012/11/:post', 'http://blog.sigurdhsson.org/2012/11/$1'));
 app.use(moved('/2014/04/:post', 'http://blog.sigurdhsson.org/2014/04/$1'));
 app.use(moved('/2014/09/:post', 'http://blog.sigurdhsson.org/2014/09/$1'));
 // Project on github from before move
 app.use(moved('/skrapport/:uri*', 'http://projects.sigurdhsson.org/skrapport/$1'));
-app.use(moved('/dotfiles/:uri*',  'http://projects.sigurdhsson.org/dotfiles/$1'));
-app.use(moved('/skmath/:uri*',    'http://projects.sigurdhsson.org/skmath/$1'));
-app.use(moved('/latexbok/:uri*',  'http://projects.sigurdhsson.org/latexbok/$1'));
-app.use(moved('/skdoc/:uri*',     'http://projects.sigurdhsson.org/skdoc/$1'));
-app.use(moved('/chscite/:uri*',   'http://projects.sigurdhsson.org/chscite/$1'));
-app.use(moved('/streck/:uri*',    'http://projects.sigurdhsson.org/streck/$1'));
+app.use(moved('/dotfiles/:uri*', 'http://projects.sigurdhsson.org/dotfiles/$1'));
+app.use(moved('/skmath/:uri*', 'http://projects.sigurdhsson.org/skmath/$1'));
+app.use(moved('/latexbok/:uri*', 'http://projects.sigurdhsson.org/latexbok/$1'));
+app.use(moved('/skdoc/:uri*', 'http://projects.sigurdhsson.org/skdoc/$1'));
+app.use(moved('/chscite/:uri*', 'http://projects.sigurdhsson.org/chscite/$1'));
+app.use(moved('/streck/:uri*', 'http://projects.sigurdhsson.org/streck/$1'));
 
 // Finally, the static cache serving middleware serving the hCard
 app.use(require('koa-static-cache')(path.join(__dirname, 'public'), {

@@ -1,373 +1,440 @@
 <!DOCTYPE html>
 <html lang="en" itemscope itemtype="http://schema.org/Person">
-  <head prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
-    <meta charset="utf-8">
-    <meta name=viewport content="width=device-width, initial-scale=1">
-    <link rel="profile" href="http://microformats.org/profile/hcard">
-    <link rel="canonical" href="https://sigurdhsson.org/">
-    <title>Simon Sigurdhsson (urdh)</title>
-    <link rel="pgpkey" href="https://keybase.io/urdh/key.asc">
-    <meta name="description" content="The online business card of Simon Sigurdhsson.">
-    <meta name="keywords" content="hcard, urdh, Simon Sigurdhsson">
-    <meta name="robots" content="NOODP">
-    <meta property="og:title" content="Simon Sigurdhsson">
-    <meta property="og:url" content="https://sigurdhsson.org/">
-    <meta property="og:image" content="http://www.gravatar.com/avatar/2e225ff5beb684088f5c9131d3979a18.jpg?s=512">
-    <meta property="og:image:secure_url" content="https://www.gravatar.com/avatar/2e225ff5beb684088f5c9131d3979a18.jpg?s=512">
-    <meta property="og:image:width" content="512">
-    <meta property="og:image:height" content="512">
-    <meta property="og:type" content="profile">
-    <meta property="og:description" content="The online business card of Simon Sigurdhsson.">
-    <meta property="profile:first_name" content="Simon">
-    <meta property="profile:last_name" content="Sigurdhsson">
-    <meta property="profile:username" content="urdh">
-    <meta property="profile:gender" content="male">
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:site" content="@urdh">
-    <meta name="twitter:title" content="Simon Sigurdhsson">
-    <meta name="twitter:description" content="The online business card of Simon Sigurdhsson.">
-    <meta name="twitter:image" content="https://www.gravatar.com/avatar/2e225ff5beb684088f5c9131d3979a18.jpg?s=128">
-    <meta name="twitter:url" content="https://sigurdhsson.org/">
-    <meta name="p:domain_verify" content="5a5c58fcbb2f61f0e124c2900b2a291f"/>
-    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css" rel=stylesheet>
-    <style>
-      /* http://clrs.cc */
-      @import url(//fonts.googleapis.com/css?family=Raleway:400,600);
-      @import url(//fonts.googleapis.com/css?family=Source+Code+Pro:300);
-      body {
-        font-family: Raleway, sans-serif;
-        margin-left: 33%;
-        padding-left: 96px;
-        color: #111111;
-      }
-      a {
-        color: #85144B;
-      }
-      a:hover {
-        color: #39CCCC;
-      }
-      #photo {
+
+<head prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile#">
+  <meta charset="utf-8">
+  <meta name=viewport content="width=device-width, initial-scale=1">
+  <link rel="profile" href="http://microformats.org/profile/hcard">
+  <link rel="canonical" href="https://sigurdhsson.org/">
+  <title>Simon Sigurdhsson (urdh)</title>
+  <link rel="pgpkey" href="https://keybase.io/urdh/key.asc">
+  <meta name="description" content="The online business card of Simon Sigurdhsson.">
+  <meta name="keywords" content="hcard, urdh, Simon Sigurdhsson">
+  <meta name="robots" content="NOODP">
+  <meta property="og:title" content="Simon Sigurdhsson">
+  <meta property="og:url" content="https://sigurdhsson.org/">
+  <meta property="og:image" content="http://www.gravatar.com/avatar/2e225ff5beb684088f5c9131d3979a18.jpg?s=512">
+  <meta property="og:image:secure_url" content="https://www.gravatar.com/avatar/2e225ff5beb684088f5c9131d3979a18.jpg?s=512">
+  <meta property="og:image:width" content="512">
+  <meta property="og:image:height" content="512">
+  <meta property="og:type" content="profile">
+  <meta property="og:description" content="The online business card of Simon Sigurdhsson.">
+  <meta property="profile:first_name" content="Simon">
+  <meta property="profile:last_name" content="Sigurdhsson">
+  <meta property="profile:username" content="urdh">
+  <meta property="profile:gender" content="male">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@urdh">
+  <meta name="twitter:title" content="Simon Sigurdhsson">
+  <meta name="twitter:description" content="The online business card of Simon Sigurdhsson.">
+  <meta name="twitter:image" content="https://www.gravatar.com/avatar/2e225ff5beb684088f5c9131d3979a18.jpg?s=128">
+  <meta name="twitter:url" content="https://sigurdhsson.org/">
+  <meta name="p:domain_verify" content="5a5c58fcbb2f61f0e124c2900b2a291f" />
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css" rel=stylesheet>
+  <style>
+    /* http://clrs.cc */
+
+    @import url(//fonts.googleapis.com/css?family=Raleway:400,600);
+    @import url(//fonts.googleapis.com/css?family=Source+Code+Pro:300);
+    body {
+      font-family: Raleway, sans-serif;
+      margin-left: 33%;
+      padding-left: 96px;
+      color: #111111;
+    }
+
+    a {
+      color: #85144B;
+    }
+
+    a:hover {
+      color: #39CCCC;
+    }
+
+    #photo {
       background: #DDDDDD;
-        border-radius: 50%;
-        padding: 5px;
-        max-width: 128px;
-        position: fixed;
-        left: 33%;
-        top: 16px;
-        margin-left: -64px;
-      }
-      h1 {
-        font-size: 1.5rem;
-        text-transform: uppercase;
-        letter-spacing: .5ex;
-        font-weight: 600;
-        margin-top: 32px;
-        font-kerning: none !important;
-      }
-      h1 a {
-        color: inherit !important;
-        text-decoration: none !important;
-      }
-      h1 a:hover {
-        color: inherit !important;
-      }
-      h2 {
-        font-size: 1.25rem;
-        font-weight: 600;
-        margin-top: 2em;
-      }
-      h1, h2, p {
-        font-kerning: normal;
-      }
-      p {
-        font-variant-ligatures: common-ligatures;
-      }
-      ul li {
-        margin: 1em 0;
-      }
-      #map {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 33%;
-        height: 100%;
-        border-right: 2ex solid #DDDDDD;
-      }
-      #pgpkey {
-        font-family: 'Source Code Pro', monospace;
-        font-weight: 300;
-        white-space: pre;
-      }
-      #pgpkey a {
-        text-decoration: none !important;
-      }
-      #pgpkey span span+span {
-        padding-left: 1ex;
-      }
-      #pgpkey span span:nth-child(-n+6) {
-        width: 0;
-        overflow: hidden;
-        display: inline-block;
-        padding-left: 0;
-      }
-      #pgpkey span span:nth-child(1) {
-        width: 4.5ex;
-      }
-      #pgpkey span span:nth-child(1)::before {
-        content: '...';
-        padding-right: 4ex;
-      }
-      #pgpkey span span:nth-child(7) {
-        padding-left: 0;
-      }
+      border-radius: 50%;
+      padding: 5px;
+      max-width: 128px;
+      position: fixed;
+      left: 33%;
+      top: 16px;
+      margin-left: -64px;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: .5ex;
+      font-weight: 600;
+      margin-top: 32px;
+      font-kerning: none !important;
+    }
+
+    h1 a {
+      color: inherit !important;
+      text-decoration: none !important;
+    }
+
+    h1 a:hover {
+      color: inherit !important;
+    }
+
+    h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-top: 2em;
+    }
+
+    h1,
+    h2,
+    p {
+      font-kerning: normal;
+    }
+
+    p {
+      font-variant-ligatures: common-ligatures;
+    }
+
+    ul li {
+      margin: 1em 0;
+    }
+
+    #map {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 33%;
+      height: 100%;
+      border-right: 2ex solid #DDDDDD;
+    }
+
+    #pgpkey {
+      font-family: 'Source Code Pro', monospace;
+      font-weight: 300;
+      white-space: pre;
+    }
+
+    #pgpkey a {
+      text-decoration: none !important;
+    }
+
+    #pgpkey span span+span {
+      padding-left: 1ex;
+    }
+
+    #pgpkey span span:nth-child(-n+6) {
+      width: 0;
+      overflow: hidden;
+      display: inline-block;
+      padding-left: 0;
+    }
+
+    #pgpkey span span:nth-child(1) {
+      width: 4.5ex;
+    }
+
+    #pgpkey span span:nth-child(1)::before {
+      content: '...';
+      padding-right: 4ex;
+    }
+
+    #pgpkey span span:nth-child(7) {
+      padding-left: 0;
+    }
+
+    .block {
+      width: 40%;
+      margin-right: 1em;
+      float: left;
+    }
+
+    .wide.block {
+      width: 80%;
+      margin-right: 0;
+      border-top: 1px solid transparent;
+      float: none;
+      clear: both;
+    }
+
+    .wide.block h2 {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+      -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+      flex-direction: row;
+      -webkit-box-pack: center;
+      -webkit-justify-content: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+    }
+
+    .wide.block h2:before,
+    .wide.block h2:after {
+      background: #111111;
+      content: '\a0';
+      -webkit-box-flex: 1;
+      -webkit-flex-grow: 1;
+      -ms-flex-positive: 1;
+      flex-grow: 1;
+      height: 2px;
+      position: relative;
+      top: 0.5em;
+    }
+
+    .wide.block h2:before {
+      margin-right: 1em;
+    }
+
+    .wide.block h2:after {
+      margin-left: 1em;
+    }
+
+    #vcard-link {
+      position: absolute;
+      top: 0;
+      right: 0;
+      font-size: smaller;
+    }
+
+    #vcard-link p {
+      margin: 1ex;
+    }
+
+    @media (max-width: 800px) {
       .block {
-        width: 40%;
-        margin-right: 1em;
-        float: left;
-      }
-      .wide.block {
-        width: 80%;
-        margin-right: 0;
-        border-top: 1px solid transparent;
+        width: 100%;
         float: none;
-        clear: both;
       }
-      .wide.block h2 {
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-orient: horizontal;
-        -webkit-box-direction: normal;
-        -webkit-flex-direction: row;
-            -ms-flex-direction: row;
-                flex-direction: row;
-               -webkit-box-pack: center;
-        -webkit-justify-content: center;
-                  -ms-flex-pack: center;
-                justify-content: center;
-        text-align: center;
-        text-transform: uppercase;
-        letter-spacing: 0.15em;
+    }
+
+    @media (max-width: 600px) {
+      #map {
+        width: 96px;
       }
-      .wide.block h2:before, .wide.block h2:after {
-        background: #111111;
-        content: '\a0';
-         -webkit-box-flex: 1;
-        -webkit-flex-grow: 1;
-        -ms-flex-positive: 1;
-                flex-grow: 1;
-        height: 2px;
-        position: relative;
-        top: 0.5em;
-      }
-      .wide.block h2:before {
-        margin-right: 1em;
-      }
-      .wide.block h2:after {
-        margin-left: 1em;
-      }
-      #vcard-link {
-        position: absolute;
-        top: 0;
-        right: 0;
-        font-size: smaller;
-      }
-      #vcard-link p {
-        margin: 1ex;
-      }
-      @media (max-width: 800px) {
-        .block { width: 100%; float: none; }
-      }
-      @media (max-width: 600px) {
-        #map { width: 96px; }
-        .leaflet-control-attribution { display: none; }
-        #photo { margin-left: 0px; left: 32px; }
-        body { margin-left: 0; padding-left: 192px; }
-      }
-      @media (max-width: 500px) {
-        #map { display: none; }
-        #photo { position: initial; margin: 1ex auto; display: block; }
-        h1 { text-align: center; }
-        body { margin-left: 0; padding-left: 1em; }
-      }
-      .hidden {
+      .leaflet-control-attribution {
         display: none;
       }
-    </style>
-  </head>
-  <body>
-    <section class="h-card vcard">
-      <img id="photo" src="//www.gravatar.com/avatar/2e225ff5beb684088f5c9131d3979a18.jpg?s=128" alt="Photo of Simon Sigurdhsson" itemprop="image" class="u-photo photo">
-      <h1><a itemprop="name" class="u-url u-uid p-name url uid fn" href="https://sigurdhsson.org/" rel="me">Simon Sigurdhsson</a><span class="hidden"> (<span class="nickname" itemprop="alternateName">urdh</span>)</span></h1>
-      <p class="p-note">M.Sc. in Mathematics, <em itemprop="alumniOf" itemscope itemtype="http://schema.org/EducationalOrganization"><a href="https://chalmers.se/" itemprop="name">Chalmers University of Technology</a></em></p>
-      <p><span itemprop="jobTitle" class="p-job-title title">Software Engineer</span> at <em itemprop="worksFor" itemscope itemtype="http://schema.org/Organization"><a href="http://www.evidente.se/" itemprop="name" class="p-org org">Evidente AB</a></em></p>
-      <ul class="fa-ul">
-        <li><i class="fa fa-li fa-file-pdf-o"></i> <a href="/resume.pdf">Résumé</a> (updated 2016-09-05)</li>
-        <li><i class="fa fa-li fa-globe"></i> <a href="https://blog.sigurdhsson.org/" class="u-url url">blog.sigurdhsson.org</a></li>
-        <li><i class="fa fa-li fa-globe"></i> <a href="https://projects.sigurdhsson.org/" class="u-url url">projects.sigurdhsson.org</a></li>
-        <li><i class="fa fa-li fa-at"></i> <a href="mailto:Sigurdhsson@gmail.com" itemprop="email" class="u-email email">Sigurdhsson@gmail.com<span class="hidden"> (<span class="type">pref</span>erred)</span></a></li>
-        <li id="pgpkey"><i class="fa fa-li fa-key"></i><a href="https://keybase.io/urdh"><span class="u-key key"><span>C016</span><span>5C17</span><span>B435</span><span>7730</span><span>B810</span><span>44EF</span><span>1BBD</span><span>3F32</span><span>551A</span><span>403D</span></span></a></li>
+      #photo {
+        margin-left: 0px;
+        left: 32px;
+      }
+      body {
+        margin-left: 0;
+        padding-left: 192px;
+      }
+    }
+
+    @media (max-width: 500px) {
+      #map {
+        display: none;
+      }
+      #photo {
+        position: initial;
+        margin: 1ex auto;
+        display: block;
+      }
+      h1 {
+        text-align: center;
+      }
+      body {
+        margin-left: 0;
+        padding-left: 1em;
+      }
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <section class="h-card vcard">
+    <img id="photo" src="//www.gravatar.com/avatar/2e225ff5beb684088f5c9131d3979a18.jpg?s=128" alt="Photo of Simon Sigurdhsson"
+      itemprop="image" class="u-photo photo">
+    <h1><a itemprop="name" class="u-url u-uid p-name url uid fn" href="https://sigurdhsson.org/" rel="me">Simon Sigurdhsson</a>
+      <span
+        class="hidden"> (<span class="nickname" itemprop="alternateName">urdh</span>)</span>
+    </h1>
+    <p class="p-note">M.Sc. in Mathematics, <em itemprop="alumniOf" itemscope itemtype="http://schema.org/EducationalOrganization"><a href="https://chalmers.se/" itemprop="name">Chalmers University of Technology</a></em></p>
+    <p><span itemprop="jobTitle" class="p-job-title title">Software Engineer</span> at <em itemprop="worksFor" itemscope itemtype="http://schema.org/Organization"><a href="http://www.evidente.se/" itemprop="name" class="p-org org">Evidente AB</a></em></p>
+    <ul class="fa-ul">
+      <li><i class="fa fa-li fa-file-pdf-o"></i> <a href="/resume.pdf">Résumé</a> (updated 2016-09-05)</li>
+      <li><i class="fa fa-li fa-globe"></i> <a href="https://blog.sigurdhsson.org/" class="u-url url">blog.sigurdhsson.org</a></li>
+      <li><i class="fa fa-li fa-globe"></i> <a href="https://projects.sigurdhsson.org/" class="u-url url">projects.sigurdhsson.org</a></li>
+      <li><i class="fa fa-li fa-at"></i> <a href="mailto:Sigurdhsson@gmail.com" itemprop="email" class="u-email email">Sigurdhsson@gmail.com<span class="hidden"> (<span class="type">pref</span>erred)</span></a></li>
+      <li id="pgpkey"><i class="fa fa-li fa-key"></i><a href="https://keybase.io/urdh"><span class="u-key key"><span>C016</span><span>5C17</span><span>B435</span><span>7730</span><span>B810</span><span>44EF</span><span>1BBD</span><span>3F32</span><span>551A</span><span>403D</span></span></a></li>
+    </ul>
+
+    <aside id="vcard-link">
+      <p><a href="http://dev.h2vx.com/vcf/sigurdhsson.org">Get vCard</a></p>
+    </aside>
+
+    <div class="block">
+      <h2>Work</h2>
+      <ul class="fa-ul p-org h-card org" itemprop="workLocation" itemscope itemtype="http://schema.org/Place">
+        <li class="hidden"><i class="fa fa-li fa-briefcase"></i> <a href="http://www.evidente.se/" itemprop="name" class="u-url p-name organization-name url">Evidente AB</a></li>
+        <!-- <li><i class="fa fa-li fa-at"></i> <a href="mailto:[redacted]" class="u-email email">[redacted]</a></li> -->
+        <li><i class="fa fa-li fa-phone"></i> <a href="tel:+46-31-7220146" itemprop="telephone" class="p-tel tel"><span class="value">+46</span> <span class="value">31</span>–<span class="value">772</span> <span class="value">01</span> <span class="value">46</span><span class="hidden"> (<span class="type">work</span>)</span></a></li>
+        <li><i class="fa fa-li fa-envelope"></i>
+          <p itemprop="address" class="p-adr h-adr" itemscope itemtype="http://schema.org/PostalAddress">
+            <span class="hidden"><span class="type">Work</span> address:<br></span>
+            <span itemprop="streetAddress" class="p-street-address street-address">Odinsgatan 13</span><br>
+            <span itemprop="postalCode" class="p-postal-code postal-code">SE–411 03</span>
+            <span itemprop="addressLocality" class="p-locality locality">Göteborg</span><br>
+            <span itemprop="addressCountry" class="p-country-name country-name">Sweden</span>
+          </p>
+        </li>
       </ul>
 
-      <aside id="vcard-link">
-        <p><a href="http://dev.h2vx.com/vcf/sigurdhsson.org">Get vCard</a></p>
-      </aside>
+      <h2>Home</h2>
+      <ul class="fa-ul" itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+        <li><i class="fa fa-li fa-phone"></i> <a href="tel:+46-703-293054" itemprop="telephone" class="p-tel tel"><span class="value">+46</span> <span class="value">703</span>–<span class="value">29</span> <span class="value">30</span> <span class="value">54</span><span class="hidden"> (<span class="type">home</span>)</span></a></li>
+        <li><i class="fa fa-li fa-envelope"></i>
+          <p itemprop="address" class="p-adr h-adr adr" itemscope itemtype="http://schema.org/PostalAddress">
+            <span class="hidden"><span class="type">Home</span> address:<br></span>
+            <span itemprop="streetAddress" class="p-street-address street-address">Maj på Malös gata 30</span><br>
+            <span itemprop="postalCode" class="p-postal-code postal-code">SE–417 67</span>
+            <span itemprop="addressLocality" class="p-locality locality">Göteborg</span><br>
+            <span itemprop="addressCountry" class="p-country-name country-name">Sweden</span>
+          </p>
+        </li>
+      </ul>
+    </div>
 
-      <div class="block">
-        <h2>Work</h2>
-        <ul class="fa-ul p-org h-card org" itemprop="workLocation" itemscope itemtype="http://schema.org/Place">
-          <li class="hidden"><i class="fa fa-li fa-briefcase"></i> <a href="http://www.evidente.se/" itemprop="name" class="u-url p-name organization-name url">Evidente AB</a></li>
-          <!-- <li><i class="fa fa-li fa-at"></i> <a href="mailto:[redacted]" class="u-email email">[redacted]</a></li> -->
-          <li><i class="fa fa-li fa-phone"></i> <a href="tel:+46-31-7220146" itemprop="telephone" class="p-tel tel"><span class="value">+46</span> <span class="value">31</span>–<span class="value">772</span> <span class="value">01</span> <span class="value">46</span><span class="hidden"> (<span class="type">work</span>)</span></a></li>
-          <li><i class="fa fa-li fa-envelope"></i>
-            <p itemprop="address" class="p-adr h-adr" itemscope itemtype="http://schema.org/PostalAddress">
-              <span class="hidden"><span class="type">Work</span> address:<br></span>
-              <span itemprop="streetAddress" class="p-street-address street-address">Odinsgatan 13</span><br>
-              <span itemprop="postalCode" class="p-postal-code postal-code">SE–411 03</span>
-              <span itemprop="addressLocality" class="p-locality locality">Göteborg</span><br>
-              <span itemprop="addressCountry" class="p-country-name country-name">Sweden</span>
-            </p>
-          </li>
-        </ul>
+    <div class="block">
+      <h2>Social media</h2>
+      <ul class="fa-ul">
+        <li><i class="fa fa-li fa-facebook"></i> <a href="https://facebook.com/sigurdhsson" rel="me" itemprop="sameAs">sigurdhsson</a></li>
+        <li><i class="fa fa-li fa-linkedin"></i> <a href="https://linkedin.com/in/simonsigurdhsson/" rel="me" itemprop="sameAs">simonsigurdhsson</a></li>
+        <li><i class="fa fa-li fa-twitter"></i> <a href="https://twitter.com/urdh" rel="me" itemprop="sameAs">@urdh</a></li>
+        <li><i class="fa fa-li fa-google-plus"></i> <a href="https://plus.google.com/+SimonSigurdhsson" rel="me" itemprop="sameAs">+SimonSigurdhsson</a></li>
+        <!-- <li><i class="fa fa-li fa-smile-o"></i> <a href="https://ello.co/urdh" rel="me" itemprop="sameAs">@urdh</a></li> -->
+        <li><i class="fa fa-li fa-thumb-tack"></i> <a href="https://pinboard.in/u:urdh" rel="me" itemprop="sameAs">urdh</a></li>
+        <!-- <li><i class="fa fa-li fa-pinterest"></i> <a href="https://pinterest.com/urdh" rel="me" itemprop="sameAs">urdh</a></li> -->
+        <li><i class="fa fa-li fa-github"></i> <a href="https://github.com/urdh/" rel="me" itemprop="sameAs">urdh</a></li>
+        <li><i class="fa fa-li fa-reddit-alien"></i> <a href="https://www.reddit.com/user/urdh/" rel="me" itemprop="sameAs">urdh</a></li>
+        <li><i class="fa fa-li fa-stack-overflow"></i> <a href="https://stackoverflow.com/users/147845/you" rel="me" itemprop="sameAs">You</a></li>
+        <li><i class="fa fa-li fa-camera-retro"></i> <a href="https://www.flickr.com/photos/tinyguy/" rel="me" itemprop="sameAs">sigurdhsson</a>          (flickr)</li>
+        <li><i class="fa fa-li fa-camera-retro"></i> <a href="https://500px.com/urdh" rel="me" itemprop="sameAs">urdh</a> (500px)</li>
+        <!-- <li><i class="fa fa-li fa-camera-retro"></i> <a href="https://1x.com/member/urdh" rel="me" itemprop="sameAs">urdh</a> (1x)</li> -->
+      </ul>
+    </div>
 
-        <h2>Home</h2>
-        <ul class="fa-ul" itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
-          <li><i class="fa fa-li fa-phone"></i> <a href="tel:+46-703-293054" itemprop="telephone" class="p-tel tel"><span class="value">+46</span> <span class="value">703</span>–<span class="value">29</span> <span class="value">30</span> <span class="value">54</span><span class="hidden"> (<span class="type">home</span>)</span></a></li>
-          <li><i class="fa fa-li fa-envelope"></i>
-            <p itemprop="address" class="p-adr h-adr adr" itemscope itemtype="http://schema.org/PostalAddress">
-              <span class="hidden"><span class="type">Home</span> address:<br></span>
-              <span itemprop="streetAddress" class="p-street-address street-address">Maj på Malös gata 30</span><br>
-              <span itemprop="postalCode" class="p-postal-code postal-code">SE–417 67</span>
-              <span itemprop="addressLocality" class="p-locality locality">Göteborg</span><br>
-              <span itemprop="addressCountry" class="p-country-name country-name">Sweden</span>
-            </p>
-          </li>
-        </ul>
-      </div>
-
-      <div class="block">
-        <h2>Social media</h2>
-        <ul class="fa-ul">
-          <li><i class="fa fa-li fa-facebook"></i> <a href="https://facebook.com/sigurdhsson" rel="me" itemprop="sameAs">sigurdhsson</a></li>
-          <li><i class="fa fa-li fa-linkedin"></i> <a href="https://linkedin.com/in/simonsigurdhsson/" rel="me" itemprop="sameAs">simonsigurdhsson</a></li>
-          <li><i class="fa fa-li fa-twitter"></i> <a href="https://twitter.com/urdh" rel="me" itemprop="sameAs">@urdh</a></li>
-          <li><i class="fa fa-li fa-google-plus"></i> <a href="https://plus.google.com/+SimonSigurdhsson" rel="me" itemprop="sameAs">+SimonSigurdhsson</a></li>
-          <!-- <li><i class="fa fa-li fa-smile-o"></i> <a href="https://ello.co/urdh" rel="me" itemprop="sameAs">@urdh</a></li> -->
-          <li><i class="fa fa-li fa-thumb-tack"></i> <a href="https://pinboard.in/u:urdh" rel="me" itemprop="sameAs">urdh</a></li>
-          <!-- <li><i class="fa fa-li fa-pinterest"></i> <a href="https://pinterest.com/urdh" rel="me" itemprop="sameAs">urdh</a></li> -->
-          <li><i class="fa fa-li fa-github"></i> <a href="https://github.com/urdh/" rel="me" itemprop="sameAs">urdh</a></li>
-          <li><i class="fa fa-li fa-reddit-alien"></i> <a href="https://www.reddit.com/user/urdh/" rel="me" itemprop="sameAs">urdh</a></li>
-          <li><i class="fa fa-li fa-stack-overflow"></i> <a href="https://stackoverflow.com/users/147845/you" rel="me" itemprop="sameAs">You</a></li>
-          <li><i class="fa fa-li fa-camera-retro"></i> <a href="https://www.flickr.com/photos/tinyguy/" rel="me" itemprop="sameAs">sigurdhsson</a> (flickr)</li>
-          <li><i class="fa fa-li fa-camera-retro"></i> <a href="https://500px.com/urdh" rel="me" itemprop="sameAs">urdh</a> (500px)</li>
-          <!-- <li><i class="fa fa-li fa-camera-retro"></i> <a href="https://1x.com/member/urdh" rel="me" itemprop="sameAs">urdh</a> (1x)</li> -->
-        </ul>
-      </div>
-
-      <div class="wide block">
-        <h2>Currently</h2>
-        <ul class="fa-ul">
-          <li id="reading"><i class="fa fa-li fa-bookmark"></i><span>n/a</span></li>
-          <li id="listening"><i class="fa fa-li fa-volume-up"></i><span>n/a</span></li>
-          <li id="recentphoto"><i class="fa fa-li fa-camera-retro"></i><span>n/a</span></li>
-          <li id="recentcode"><i class="fa fa-li fa-code-fork"></i><span>n/a</span></li>
-        </ul>
-      </div>
-    </section>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet-providers/1.1.7/leaflet-providers.min.js"></script>
-    <script>
-      $(function() {
-        // Map
-        $('body').prepend('<div id="map"></div>');
-        var map = L.map('map', {
-          center: [57.70134975, 11.92638874],
-          zoom: 13,
-          layers: [],
-          scrollWheelZoom: false,
-          zoomControl: false
-        });
-        L.tileLayer.provider('Stamen.TonerLite').addTo(map);
-        // Currently reading on Goodreads (Note: public api key is from rss feed link)
-        $.get('/currently-reading.json', {},
-          function(data) {
-            if(data && data[0]){
-              var book = data[0];
-              var link = book.url;
-              var title = book.title;
-              var author = book.authors;
-              $('#reading>span').html(
-                '“<a href="' + link + '">' + title + '</a>” ' +
-                'by <em>' + author + '</em>.'
-              );
-            } else {
-              $('#reading>span').html('Nothing.');
-            }
-          }
-        );
-        // Currently playing on last.fm
-        $.get('/recent-tracks.json', {},
-          function(data) {
-            if(data && data[0]) {
-              var track = data[0];
-              var link = track.url;
-              var title = track.title;
-              var artist = track.artist;
-              $('#listening>span').html(
-                '“<a href="' + link + '">' + title + '</a>” ' +
-                'by <em>' + artist + '</em>.'
-              )
-            } else {
-              $('#listening>span').html('Nothing.');
-            }
-          }
-        );
-        // Most recent photo from 500px
-        $.get('/recent-photos.json', {},
-          function(data) {
-            if(data && data[0]){
-              var photo = data[0];
-              var link = photo.url;
-              var title = photo.title;
-              var camera = photo.camera;
-              $('#recentphoto>span').html(
-                '“<a href="' + link + '">' + title + '</a>” ' +
-                'using a <em>' + camera + '</em>.'
-              );
-            } else {
-              $('#recentphoto>span').html('Nothing.');
-            }
-          }
-        );
-        // Most recent commit on Github
-        $.get('/recent-commits.json', {},
-          function(data) {
-            if(data && data[0]){
-              var commit = data[0];
-              var repo = commit.repo;
-              var link = commit.url;
-              var message = commit.message;
-              $('#recentcode>span').html(
-                '“<a href="' + link + '">' + message + '</a>” ' +
-                'to <em>' + repo + '</em>.'
-              );
-            } else {
-              $('#recentcode>span').html('Nothing.');
-            }
-          }
-        );
+    <div class="wide block">
+      <h2>Currently</h2>
+      <ul class="fa-ul">
+        <li id="reading"><i class="fa fa-li fa-bookmark"></i><span>n/a</span></li>
+        <li id="listening"><i class="fa fa-li fa-volume-up"></i><span>n/a</span></li>
+        <li id="recentphoto"><i class="fa fa-li fa-camera-retro"></i><span>n/a</span></li>
+        <li id="recentcode"><i class="fa fa-li fa-code-fork"></i><span>n/a</span></li>
+      </ul>
+    </div>
+  </section>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet-providers/1.1.7/leaflet-providers.min.js"></script>
+  <script>
+    $(function () {
+      // Map
+      $('body').prepend('<div id="map"></div>');
+      var map = L.map('map', {
+        center: [57.70134975, 11.92638874],
+        zoom: 13,
+        layers: [],
+        scrollWheelZoom: false,
+        zoomControl: false
       });
-    </script>
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-      ga('create', 'UA-7143013-4', 'auto');
-      ga('send', 'pageview');
-    </script>
-  </body>
+      L.tileLayer.provider('Stamen.TonerLite').addTo(map);
+      // Currently reading on Goodreads (Note: public api key is from rss feed link)
+      $.get('/currently-reading.json', {},
+        function (data) {
+          if (data && data[0]) {
+            var book = data[0];
+            var link = book.url;
+            var title = book.title;
+            var author = book.authors;
+            $('#reading>span').html(
+              '“<a href="' + link + '">' + title + '</a>” ' +
+              'by <em>' + author + '</em>.'
+            );
+          } else {
+            $('#reading>span').html('Nothing.');
+          }
+        }
+      );
+      // Currently playing on last.fm
+      $.get('/recent-tracks.json', {},
+        function (data) {
+          if (data && data[0]) {
+            var track = data[0];
+            var link = track.url;
+            var title = track.title;
+            var artist = track.artist;
+            $('#listening>span').html(
+              '“<a href="' + link + '">' + title + '</a>” ' +
+              'by <em>' + artist + '</em>.'
+            )
+          } else {
+            $('#listening>span').html('Nothing.');
+          }
+        }
+      );
+      // Most recent photo from 500px
+      $.get('/recent-photos.json', {},
+        function (data) {
+          if (data && data[0]) {
+            var photo = data[0];
+            var link = photo.url;
+            var title = photo.title;
+            var camera = photo.camera;
+            $('#recentphoto>span').html(
+              '“<a href="' + link + '">' + title + '</a>” ' +
+              'using a <em>' + camera + '</em>.'
+            );
+          } else {
+            $('#recentphoto>span').html('Nothing.');
+          }
+        }
+      );
+      // Most recent commit on Github
+      $.get('/recent-commits.json', {},
+        function (data) {
+          if (data && data[0]) {
+            var commit = data[0];
+            var repo = commit.repo;
+            var link = commit.url;
+            var message = commit.message;
+            $('#recentcode>span').html(
+              '“<a href="' + link + '">' + message + '</a>” ' +
+              'to <em>' + repo + '</em>.'
+            );
+          } else {
+            $('#recentcode>span').html('Nothing.');
+          }
+        }
+      );
+    });
+  </script>
+  <script>
+    (function (i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date(); a = s.createElement(o),
+      m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-7143013-4', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+
 </html>
