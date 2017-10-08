@@ -79,7 +79,7 @@ Callbacks.prototype.getGithubCommits = function (options) {
       return item.type == 'PushEvent';
     }).map(function (item) {
       var repo = item.repo.name;
-      return item.payload.commits.map(function (subitem) {
+      return item.payload.commits.reverse().map(function (subitem) {
         return {
           'sha': subitem.sha,
           'url': 'http://github.com/' + repo + '/commit/' + subitem.sha,
