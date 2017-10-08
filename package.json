@@ -28,7 +28,7 @@
     "koa-static-cache": "^5.1.1",
     "lastfmapi": "^0.1.1",
     "mz": "^2.7.0",
-    "path-to-regexp": "^1.7.0",
+    "path-to-regexp": "^2.0.0",
     "snyk": "^1.42.4"
   },
   "engines": {
