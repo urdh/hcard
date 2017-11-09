@@ -15,11 +15,12 @@ Callbacks.prototype.getRecentTracks = function (options) {
   var apiGetRecentTracks = Promise.promisify(lastfm.user.getRecentTracks, { context: lastfm.user });
   return apiGetRecentTracks({ user: options.user }).then(function (result) {
     return [].concat.apply([], result.track.map(function (item) {
+      var date = item.date || { 'uts': Date.now() / 1000 };
       return {
         'artist': item.artist['#text'],
         'title': item.name,
         'url': item.url,
-        'date': new Date(item.date.uts * 1000).toISOString()
+        'date': new Date(date.uts * 1000).toISOString()
       };
     }));
   }).catch(function (err) {
