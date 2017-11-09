@@ -18,7 +18,7 @@
     "500px": "^0.5.1",
     "bluebird": "^3.5.1",
     "github": "^11.0.0",
-    "goodreads": "^0.1.0",
+    "goodreads-api-node": "^0.0.5",
     "koa": "^2.3.0",
     "koa-compress": "^2.0.0",
     "koa-conditional-get": "^2.0.0",

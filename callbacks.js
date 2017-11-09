@@ -1,6 +1,6 @@
 var Promise = require('bluebird');
 var GitHubApi = require('github');
-var GoodreadsApi = require('goodreads');
+var GoodreadsApi = require('goodreads-api-node');
 var LastfmApi = require('lastfmapi');
 var Api500px = require('500px');
 
@@ -29,44 +29,20 @@ Callbacks.prototype.getRecentTracks = function (options) {
 
 Callbacks.prototype.getCurrentBook = function (options) {
   'use strict';
-  var goodreads = new GoodreadsApi.client({
+  var goodreads = new GoodreadsApi({
     key: options.key,
     secret: options.secret
   });
-  var getBooks = Promise.promisify(goodreads.getSingleShelf, { context: goodreads });
-  // Shitty goodreads node module is shitty and doesn't "conform to node.js
-  // convention of accepting a callback as last argument and calling that
-  // callback with error as the first argument and success value on the
-  // second argument", the callback only accepting one argument containing data.
-  return getBooks({ userID: options.user, shelf: 'currently-reading' }).then(function () {
-    // Data should be here, but it isn't.
-    return { 'error': 'Goodreads API module has been fixed?' };
-  }).catch(function (result) {
-    if (!result || !result.GoodreadsResponse) {
-      return { 'error': 'Bad response from Goodreads API' };
-    }
-    // Here's the data.
-    return [].concat.apply([], result.GoodreadsResponse.books.map(function (item) {
-      return item.book.map(function (subitem) {
-        var authors = subitem.authors[0].author.map(function (subsubitem) {
-          return subsubitem.name[0] +
-            ((subsubitem.role[0] !== '') ? (' (' + subsubitem.role[0] + ')') : '');
-        }).reduce(function (prev, curr, idx, arr) {
-          if (arr.length <= 1) {
-            return curr;
-          }
-          if (idx == arr.length - 1) {
-            return prev + ' and ' + curr;
-          }
-          return prev + ', ' + curr;
-        }, '');
-        return {
-          'title': subitem.title[0],
-          'authors': authors,
-          'url': subitem.link[0]
-        };
-      });
-    }));
+  return goodreads.getUserInfo(options.user).then(function (result) {
+    var status = result.user_statuses.user_status;
+    return [{
+      'title': status.book.title,
+      'authors': status.book.authors.author.name,
+      'url': 'http://www.goodreads.com/book/show/' + status.book.id._, // TODO
+      'date': status.created_at._
+    }];
+  }).catch(function (err) {
+    return { 'error': err };
   });
 };
 
