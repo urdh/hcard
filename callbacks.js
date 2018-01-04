@@ -36,12 +36,16 @@ Callbacks.prototype.getCurrentBook = function (options) {
   });
   return goodreads.getUserInfo(options.user).then(function (result) {
     var status = result.user_statuses.user_status;
-    return [{
-      'title': status.book.title,
-      'authors': status.book.authors.author.name,
-      'url': 'http://www.goodreads.com/book/show/' + status.book.id._, // TODO
-      'date': status.created_at._
-    }];
+    if (status === undefined) {
+      return [];
+    } else {
+      return [{
+        'title': status.book.title,
+        'authors': status.book.authors.author.name,
+        'url': 'http://www.goodreads.com/book/show/' + status.book.id._, // TODO
+        'date': status.created_at._
+      }];
+    }
   }).catch(function (err) {
     return { 'error': err };
   });
