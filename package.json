@@ -17,7 +17,7 @@
   "dependencies": {
     "500px": "^0.5.1",
     "bluebird": "^3.5.1",
-    "github": "^12.0.1",
+    "github": "^13.0.1",
     "goodreads-api-node": "^0.0.5",
     "koa": "^2.4.1",
     "koa-compress": "^2.0.0",
@@ -44,7 +44,7 @@
     "eslint-plugin-node": "^5.2.1",
     "eslint-plugin-optimize-regex": "^1.1.4",
     "html5-lint": "^0.3.0",
-    "tap": "^10.7.3"
+    "tap": "^11.0.1"
   },
   "snyk": true
 }
