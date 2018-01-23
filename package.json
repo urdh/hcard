@@ -17,7 +17,7 @@
   "dependencies": {
     "500px": "^0.5.1",
     "bluebird": "^3.5.1",
-    "github": "^13.0.1",
+    "github": "^13.1.0",
     "goodreads-api-node": "^0.0.5",
     "koa": "^2.4.1",
     "koa-compress": "^2.0.0",
@@ -29,7 +29,7 @@
     "lastfmapi": "^0.1.1",
     "mz": "^2.7.0",
     "path-to-regexp": "^2.1.0",
-    "snyk": "^1.49.1"
+    "snyk": "^1.69.1"
   },
   "engines": {
     "node": "^7.0.0"
@@ -39,8 +39,8 @@
   "contributors": [],
   "license": "MIT",
   "devDependencies": {
-    "broken-link-checker": "^0.7.6",
-    "eslint": "^4.10.0",
+    "broken-link-checker": "^0.7.7",
+    "eslint": "^4.16.0",
     "eslint-plugin-node": "^5.2.1",
     "eslint-plugin-optimize-regex": "^1.1.4",
     "html5-lint": "^0.3.0",
