@@ -39,9 +39,12 @@ Callbacks.prototype.getCurrentBook = function (options) {
     if (status === undefined) {
       return [];
     } else {
+      var authors = [].concat.apply(status.book.authors.author).map(function (author) {
+        return author.name;
+      });
       return [{
         'title': status.book.title,
-        'authors': status.book.authors.author.name,
+        'authors': authors,
         'url': 'http://www.goodreads.com/book/show/' + status.book.id._, // TODO
         'date': status.created_at._
       }];

@@ -363,10 +363,12 @@
             var book = data[0];
             var link = book.url;
             var title = book.title;
-            var author = book.authors;
+            var author = book.authors.map(function(name) {
+              return '<em>' + name + '</em>';
+            }).join(", ").replace(/, ((?:.(?!, ))+)$/, ' and $1');
             $('#reading>span').html(
               '“<a href="' + link + '">' + title + '</a>” ' +
-              'by <em>' + author + '</em>.'
+              'by ' + author + '.'
             );
           } else {
             $('#reading>span').html('Nothing.');
