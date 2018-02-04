@@ -121,11 +121,11 @@ function multiple(uri, ident) {
 }
 
 // These are gone forever
-app.use(gone('/archives/*'));
-app.use(gone('/portfolio/*'));
+app.use(gone('/archives/:uri*'));
+app.use(gone('/portfolio/:uri*'));
 app.use(gone('/autobrew'));
 app.use(gone('/chslacite'));
-app.use(gone('/posts/I-X/*'));
+app.use(gone('/posts/I-X/:uri*'));
 // These are moved
 app.use(moved('/webboken/v2/:uri*', 'http://webboken.github.io/$1'));
 app.use(moved('/media/projects/latexbok/latexbok.pdf',
