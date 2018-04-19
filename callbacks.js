@@ -1,5 +1,5 @@
 var Promise = require('bluebird');
-var GitHubApi = require('github');
+var GitHubApi = require('@octokit/rest');
 var GoodreadsApi = require('goodreads-api-node');
 var LastfmApi = require('lastfmapi');
 var Api500px = require('500px');
