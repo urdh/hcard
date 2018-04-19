@@ -19,7 +19,7 @@
     "bluebird": "^3.5.1",
     "github": "^13.1.0",
     "goodreads-api-node": "^0.0.5",
-    "koa": "^2.4.1",
+    "koa": "^2.5.0",
     "koa-compress": "^2.0.0",
     "koa-conditional-get": "^2.0.0",
     "koa-etag": "^3.0.0",
@@ -28,7 +28,7 @@
     "koa-static-cache": "^5.1.2",
     "lastfmapi": "^0.1.1",
     "mz": "^2.7.0",
-    "path-to-regexp": "^2.1.0",
+    "path-to-regexp": "^2.2.0",
     "snyk": "^1.69.1"
   },
   "engines": {
