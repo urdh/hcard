@@ -16,8 +16,8 @@
   ],
   "dependencies": {
     "500px": "^0.5.1",
+    "@octokit/rest": "^15.2.6",
     "bluebird": "^3.5.1",
-    "@octokit/rest": "^14.0.0",
     "goodreads-api-node": "^0.0.5",
     "koa": "^2.5.0",
     "koa-compress": "^3.0.0",

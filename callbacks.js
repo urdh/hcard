@@ -56,7 +56,7 @@ Callbacks.prototype.getCurrentBook = function (options) {
 
 Callbacks.prototype.getGithubCommits = function (options) {
   'use strict';
-  var github = new GitHubApi({ protocol: 'https' });
+  var github = new GitHubApi({});
   var getEvents = Promise.promisify(github.activity.getEventsForUserPublic, { context: github.activity });
   return getEvents({ username: options.user }).then(function (result) {
     return [].concat.apply([], result.data.filter(function (item) {
