@@ -17,14 +17,14 @@
   "dependencies": {
     "500px": "^0.5.1",
     "bluebird": "^3.5.1",
-    "github": "^13.1.0",
+    "@octokit/rest": "^14.0.0",
     "goodreads-api-node": "^0.0.5",
     "koa": "^2.5.0",
-    "koa-compress": "^2.0.0",
+    "koa-compress": "^3.0.0",
     "koa-conditional-get": "^2.0.0",
     "koa-etag": "^3.0.0",
     "koa-file-cache": "^0.3.1",
-    "koa-helmet": "^3.3.0",
+    "koa-helmet": "^4.0.0",
     "koa-static-cache": "^5.1.2",
     "lastfmapi": "^0.1.1",
     "mz": "^2.7.0",
@@ -41,7 +41,7 @@
   "devDependencies": {
     "broken-link-checker": "^0.7.7",
     "eslint": "^4.16.0",
-    "eslint-plugin-node": "^5.2.1",
+    "eslint-plugin-node": "^6.0.1",
     "eslint-plugin-optimize-regex": "^1.1.5",
     "html5-lint": "^0.3.0",
     "tap": "^11.0.1"
