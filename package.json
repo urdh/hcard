@@ -16,7 +16,7 @@
   ],
   "dependencies": {
     "500px": "^0.5.1",
-    "@octokit/rest": "^15.2.6",
+    "@octokit/rest": "^15.13.0",
     "bluebird": "^3.5.2",
     "goodreads-api-node": "^0.0.5",
     "koa": "^2.5.3",
@@ -28,8 +28,8 @@
     "koa-static-cache": "^5.1.2",
     "lastfmapi": "^0.1.1",
     "mz": "^2.7.0",
-    "path-to-regexp": "^2.2.0",
-    "snyk": "^1.69.1"
+    "path-to-regexp": "^2.4.0",
+    "snyk": "^1.103.0"
   },
   "engines": {
     "node": "^10.0.0"
