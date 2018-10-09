@@ -165,7 +165,7 @@ tap.test('Github API proxy', function(t) {
 });
 
 if(process.env.PX500_API_KEY) {
-  tap.test('500px API proxy', function(t) {
+  tap.todo('500px API proxy', function(t) {
     callbacks.get500pxPhotos({
       key:  process.env.PX500_API_KEY || '',
       user: 'urdh'
