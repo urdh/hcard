@@ -32,7 +32,7 @@
     "snyk": "^1.69.1"
   },
   "engines": {
-    "node": "^7.0.0"
+    "node": "^10.0.0"
   },
   "keywords": [],
   "author": "Simon Sigurdhsson",
