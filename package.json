@@ -18,7 +18,7 @@
     "500px": "^0.5.1",
     "@octokit/rest": "^15.13.0",
     "bluebird": "^3.5.2",
-    "goodreads-api-node": "^0.0.5",
+    "goodreads-api-node": "0.0.9",
     "koa": "^2.5.3",
     "koa-compress": "^3.0.0",
     "koa-conditional-get": "^2.0.0",
@@ -40,11 +40,11 @@
   "license": "MIT",
   "devDependencies": {
     "broken-link-checker": "^0.7.7",
-    "eslint": "^4.16.0",
-    "eslint-plugin-node": "^6.0.1",
+    "eslint": "^5.6.1",
+    "eslint-plugin-node": "^7.0.1",
     "eslint-plugin-optimize-regex": "^1.1.6",
     "html5-lint": "^0.3.0",
-    "tap": "^11.0.1"
+    "tap": "^12.0.1"
   },
   "snyk": true
 }
