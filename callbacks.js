@@ -34,20 +34,20 @@ Callbacks.prototype.getCurrentBook = function (options) {
     secret: options.secret
   });
   return goodreads.getUserInfo(options.user).then(function (result) {
-    var status = result.user_statuses.user_status;
-    if (status === undefined) {
-      return [];
-    } else {
-      var authors = [].concat.apply(status.book.authors.author).map(function (author) {
+    return [].concat.apply([], result.updates.update.filter(function (item) {
+      return item.type == 'readstatus' && item.object.read_status.status == 'currently-reading';
+    }).map(function (item) {
+      var review = item.object.read_status.review;
+      var authors = [].concat.apply(review.book.author).map(function (author) {
         return author.name;
       });
       return [{
-        'title': status.book.title,
+        'title': review.book.title,
         'authors': authors,
-        'url': 'http://www.goodreads.com/book/show/' + status.book.id._, // TODO
-        'date': status.created_at._
+        'url': 'http://www.goodreads.com/book/show/' + review.book.id._, // TODO
+        'date': review.created_at._
       }];
-    }
+    }));
   }).catch(function (err) {
     return { 'error': err };
   });
