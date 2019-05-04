@@ -16,19 +16,19 @@
   ],
   "dependencies": {
     "@octokit/rest": "^15.13.0",
-    "bluebird": "^3.5.2",
+    "bluebird": "^3.5.4",
     "goodreads-api-node": "0.0.9",
-    "koa": "^2.5.3",
+    "koa": "^2.7.0",
     "koa-compress": "^3.0.0",
     "koa-conditional-get": "^2.0.0",
     "koa-etag": "^3.0.0",
     "koa-file-cache": "^0.3.1",
-    "koa-helmet": "^4.0.0",
+    "koa-helmet": "^4.1.0",
     "koa-static-cache": "^5.1.2",
     "lastfmapi": "^0.1.1",
     "mz": "^2.7.0",
     "path-to-regexp": "^2.4.0",
-    "snyk": "^1.103.0"
+    "snyk": "^1.161.1"
   },
   "engines": {
     "node": "^10.0.0"
@@ -39,7 +39,7 @@
   "license": "MIT",
   "devDependencies": {
     "broken-link-checker": "^0.7.7",
-    "eslint": "^5.6.1",
+    "eslint": "^5.16.0",
     "eslint-plugin-node": "^7.0.1",
     "eslint-plugin-optimize-regex": "^1.1.6",
     "html5-lint": "^0.3.0",
