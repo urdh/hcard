@@ -56,16 +56,14 @@ Callbacks.prototype.getCurrentBook = function (options) {
 Callbacks.prototype.getGithubCommits = function (options) {
   'use strict';
   var github = new GitHubApi({});
-  var getEvents = Promise.promisify(github.activity.getEventsForUserPublic, { context: github.activity });
-  return getEvents({ username: options.user }).then(function (result) {
+  return github.activity.listPublicEventsForUser({ username: options.user }).then(function (result) {
     return [].concat.apply([], result.data.filter(function (item) {
       return item.type == 'PushEvent';
     }).map(function (item) {
-      var repo = item.repo.name;
       return item.payload.commits.reverse().map(function (subitem) {
         return {
           'sha': subitem.sha,
-          'url': 'http://github.com/' + repo + '/commit/' + subitem.sha,
+          'url': 'http://github.com/' + item.repo.name + '/commit/' + subitem.sha,
           'message': subitem.message.split('\n')[0],
           'repo': item.repo.name,
           'date': item.created_at
