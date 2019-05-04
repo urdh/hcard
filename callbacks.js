@@ -2,7 +2,6 @@ var Promise = require('bluebird');
 var GitHubApi = require('@octokit/rest');
 var GoodreadsApi = require('goodreads-api-node');
 var LastfmApi = require('lastfmapi');
-var Api500px = require('500px');
 
 var Callbacks = function () { };
 
@@ -78,22 +77,9 @@ Callbacks.prototype.getGithubCommits = function (options) {
   });
 };
 
-Callbacks.prototype.get500pxPhotos = function (options) {
+Callbacks.prototype.get500pxPhotos = function (_) {
   'use strict';
-  var api500 = new Api500px(options.key);
-  var getPhotos = Promise.promisify(api500.photos.getByUsername, { context: api500.photos });
-  return getPhotos(options.user, { sort: 'created_at' }).then(function (result) {
-    return [].concat.apply([], result.photos.map(function (item) {
-      return {
-        'url': 'http://500px.com' + item.url,
-        'title': item.name,
-        'date': item.taken_at,
-        'camera': item.camera
-      };
-    }));
-  }).catch(function (err) {
-    return { 'error': err };
-  });
+  return [];
 };
 
 module.exports = new Callbacks();
