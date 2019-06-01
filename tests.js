@@ -164,17 +164,15 @@ tap.test('Github API proxy', function(t) {
   });
 });
 
-if(process.env.PX500_API_KEY) {
-  tap.todo('500px API proxy', function(t) {
-    callbacks.get500pxPhotos({
-    }).then(function(result) {
-      t.type(result, Array);
-      t.equal(result.length, 0);
-      // t.notEqual(result[0].url, undefined);
-      // t.notEqual(result[0].title, undefined);
-      // t.notEqual(result[0].camera, undefined);
-      // t.notEqual(result[0].date, undefined);
-      t.end();
-    });
+tap.test('Recent photos proxy', function(t) {
+  callbacks.getPhotos({
+  }).then(function(result) {
+    t.type(result, Array);
+    t.notEqual(result.length, 0);
+    t.notEqual(result[0].url, undefined);
+    t.notEqual(result[0].title, undefined);
+    t.notEqual(result[0].camera, undefined);
+    t.notEqual(result[0].date, undefined);
+    t.end();
   });
-}
+});

@@ -73,12 +73,9 @@ app.use(async (ctx, next) => {
     if (!ctx.body) ctx.body = await callbacks.getGithubCommits({
       user: 'urdh'
     });
-    this.type = 'json';
+    ctx.type = 'json';
   } else if (pxre.exec(ctx.path)) {
-    if (!ctx.body) ctx.body = await callbacks.get500pxPhotos({
-      key: process.env.PX500_API_KEY || '',
-      user: 'urdh'
-    });
+    if (!ctx.body) ctx.body = await callbacks.getPhotos();
     ctx.type = 'json';
   } else {
     await next();

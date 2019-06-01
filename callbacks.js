@@ -2,6 +2,7 @@ var Promise = require('bluebird');
 var GitHubApi = require('@octokit/rest');
 var GoodreadsApi = require('goodreads-api-node');
 var LastfmApi = require('lastfmapi');
+var Request = require('request-promise');
 
 var Callbacks = function () { };
 
@@ -75,9 +76,17 @@ Callbacks.prototype.getGithubCommits = function (options) {
   });
 };
 
-Callbacks.prototype.get500pxPhotos = function (_) {
+Callbacks.prototype.getPhotos = function (_) {
   'use strict';
-  return [];
+  var options = {
+    uri: 'https://photography.sigurdhsson.org/photos.json',
+    json: true
+  };
+  return Request(options).then(function (result) {
+    return result;
+  }).catch(function (err) {
+    return { 'error': err };
+  });
 };
 
 module.exports = new Callbacks();
