@@ -83,7 +83,10 @@ Callbacks.prototype.getPhotos = function (_) {
     json: true
   };
   return Request(options).then(function (result) {
-    return result;
+    return result.map(function (item) {
+      item.url = item.url.replace(/index.html?/g,'');
+      return item;
+    });
   }).catch(function (err) {
     return { 'error': err };
   });
