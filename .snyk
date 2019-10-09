@@ -37,3 +37,8 @@ patch:
         patched: '2019-07-03T22:09:03.594Z'
     - snyk > snyk-nuget-plugin > xml2js > xmlbuilder > lodash:
         patched: '2019-07-03T22:09:03.594Z'
+  SNYK-JS-HTTPSPROXYAGENT-469131:
+    - snyk > proxy-agent > https-proxy-agent:
+        patched: '2019-10-09T22:09:04.316Z'
+    - snyk > proxy-agent > pac-proxy-agent > https-proxy-agent:
+        patched: '2019-10-09T22:09:04.316Z'
