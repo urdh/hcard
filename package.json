@@ -16,9 +16,9 @@
   ],
   "dependencies": {
     "@octokit/rest": "^16.27.3",
-    "bluebird": "^3.5.5",
+    "bluebird": "^3.7.2",
     "goodreads-api-node": "0.0.10",
-    "koa": "^2.7.0",
+    "koa": "^2.11.0",
     "koa-compress": "^3.0.0",
     "koa-conditional-get": "^2.0.0",
     "koa-etag": "^3.0.0",
@@ -28,8 +28,8 @@
     "lastfmapi": "^0.1.1",
     "mz": "^2.7.0",
     "path-to-regexp": "^3.0.0",
-    "request-promise": "^4.2.4",
-    "snyk": "^1.290.1"
+    "request-promise": "^4.2.5",
+    "snyk": "^1.297.2"
   },
   "engines": {
     "node": "^10.0.0"
@@ -42,9 +42,9 @@
     "broken-link-checker": "^0.7.7",
     "eslint": "^5.16.0",
     "eslint-plugin-node": "^9.1.0",
-    "eslint-plugin-optimize-regex": "^1.1.6",
+    "eslint-plugin-optimize-regex": "^1.1.7",
     "html5-lint": "^0.3.0",
-    "tap": "^14.2.0"
+    "tap": "^14.10.6"
   },
   "snyk": true
 }
