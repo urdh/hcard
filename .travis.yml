@@ -23,9 +23,9 @@ before_script:
 
 script:
   - npm test
-  - npm-check --ignore 'eslint-config-plugin:node'
 
 after_success:
+  - npm-check --ignore 'eslint-config-plugin:node'
   - tap --coverage-report=text-lcov | codacy-coverage --verbose
   - 'curl -s http://google.com/ping\?sitemap=http:%3A%2F%2Fsigurdhsson.org%2Fsitemap.xml > /dev/null'
 
