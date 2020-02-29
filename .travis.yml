@@ -32,7 +32,7 @@ after_success:
 deploy:
   provider: heroku
   api_key:
-    secure: "Qm6DvYE61IcpbsbHsSD//G5Ei0CT/2M+WuexK1CnYymSHVGTf43/VsBsCvb2B6OFj6cHoPGByyfxKIpZ6CtcKKwSXkushVUysURGKfdJFlgyzfnQ1n9IH5C7UGT6nqHV8F+bd+9S8yTdc8MlJMeNQVI7sPW7MNRNmUSC5Hu8gp4="
+    secure: eLeME8oNniXUoyO1XAP9fZqc7K+Pnsx8gBpTQkV3qNCxYeFfQQHqyPNiSwsxzwbkIBH+uGUBlfJyyZ8lKdVdr2g63ovMHFNffsXpshjpyQdVEIFXUIlxdT3NPqkc8G4ZSB7QtQfXfZNsVft4ZCnAXvwpdMOFn5ue0fWdSO07goM=
   app: urdh-hcard
   on:
     repo: urdh/hcard
