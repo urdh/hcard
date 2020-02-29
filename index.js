@@ -1,10 +1,10 @@
-var callbacks = require('./callbacks.js');
-var pathToRegexp = require('path-to-regexp');
-var path = require('path');
-var fs = require('mz/fs');
+const callbacks = require('./callbacks.js');
+const { pathToRegexp } = require('path-to-regexp');
+const path = require('path');
+const fs = require('mz/fs');
 
 // First, some "top-layer" middlewares
-var app = new (require('koa'))();
+let app = new (require('koa'))();
 app.use(require('koa-helmet')());
 app.use(require('koa-conditional-get')());
 app.use(require('koa-etag')());
@@ -51,10 +51,10 @@ app.use(require('koa-file-cache')({
 
 // This is just providing a very limited parts of some APIs
 app.use(async (ctx, next) => {
-  var lfmre = pathToRegexp('/recent-tracks.json');
-  var grre = pathToRegexp('/currently-reading.json');
-  var ghre = pathToRegexp('/recent-commits.json');
-  var pxre = pathToRegexp('/recent-photos.json');
+  const lfmre = pathToRegexp('/recent-tracks.json');
+  const grre = pathToRegexp('/currently-reading.json');
+  const ghre = pathToRegexp('/recent-commits.json');
+  const pxre = pathToRegexp('/recent-photos.json');
   if (lfmre.exec(ctx.path)) {
     if (!ctx.body) ctx.body = await callbacks.getRecentTracks({
       key: process.env.LASTFM_API_KEY || '',
@@ -85,7 +85,7 @@ app.use(async (ctx, next) => {
 // Then, our route middlewares for redirects and missing pages
 function gone(uri) {
   return async (ctx, next) => {
-    var re = pathToRegexp(uri);
+    const re = pathToRegexp(uri);
     if (re.exec(ctx.path)) {
       ctx.status = 410;
     } else {
@@ -106,7 +106,7 @@ function moved(uri, target) {
 }
 function multiple(uri, ident) {
   return async (ctx, next) => {
-    var re = pathToRegexp(uri);
+    const re = pathToRegexp(uri);
     if (re.exec(ctx.path)) {
       ctx.body = fs.readFileSync(path.join(__dirname, 'errors', '300-' + ident + '.html'));
       ctx.type = 'html';

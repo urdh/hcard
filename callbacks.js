@@ -1,21 +1,21 @@
-var Promise = require('bluebird');
-var GitHubApi = require('@octokit/rest');
-var GoodreadsApi = require('goodreads-api-node');
-var LastfmApi = require('lastfmapi');
-var Request = require('request-promise');
+const Promise = require('bluebird');
+const { Octokit } = require('@octokit/rest');
+const GoodreadsApi = require('goodreads-api-node');
+const LastfmApi = require('lastfmapi');
+const Request = require('request-promise');
 
-var Callbacks = function () { };
+let Callbacks = function () { };
 
 Callbacks.prototype.getRecentTracks = function (options) {
   'use strict';
-  var lastfm = new LastfmApi({
+  const lastfm = new LastfmApi({
     api_key: options.key,
     secret: options.secret
   });
-  var apiGetRecentTracks = Promise.promisify(lastfm.user.getRecentTracks, { context: lastfm.user });
+  const apiGetRecentTracks = Promise.promisify(lastfm.user.getRecentTracks, { context: lastfm.user });
   return apiGetRecentTracks({ user: options.user }).then(function (result) {
     return [].concat.apply([], result.track.map(function (item) {
-      var date = item.date || { 'uts': Date.now() / 1000 };
+      const date = item.date || { 'uts': Date.now() / 1000 };
       return {
         'artist': item.artist['#text'],
         'title': item.name,
@@ -30,7 +30,7 @@ Callbacks.prototype.getRecentTracks = function (options) {
 
 Callbacks.prototype.getCurrentBook = function (options) {
   'use strict';
-  var goodreads = new GoodreadsApi({
+  const goodreads = new GoodreadsApi({
     key: options.key,
     secret: options.secret
   });
@@ -56,8 +56,8 @@ Callbacks.prototype.getCurrentBook = function (options) {
 
 Callbacks.prototype.getGithubCommits = function (options) {
   'use strict';
-  var github = new GitHubApi({});
-  return github.activity.listPublicEventsForUser({ username: options.user }).then(function (result) {
+  const github = new Octokit({});
+  return github.activity.listEventsForUser({ username: options.user }).then(function (result) {
     return [].concat.apply([], result.data.filter(function (item) {
       return item.type == 'PushEvent';
     }).map(function (item) {
@@ -78,7 +78,7 @@ Callbacks.prototype.getGithubCommits = function (options) {
 
 Callbacks.prototype.getPhotos = function (_) {
   'use strict';
-  var options = {
+  const options = {
     uri: 'https://photography.sigurdhsson.org/photos.json',
     json: true
   };
