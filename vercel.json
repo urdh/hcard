@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "github": {
+    "enabled": false
+  },
+  "routes": [
+    { "handle": "filesystem" },
+    { "src": "^/\\.well-known(?:/.*)?$" },
+    { "src": "^/((?:[^/]+/)*[^/\\.]+)$", "status": 308, "headers": { "Location": "/$1/" } }
+  ]
+}
