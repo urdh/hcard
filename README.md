@@ -5,7 +5,7 @@ In addition to doing that, it serves 301/410 messages on some URLs, since some o
 
 All HTML content is validated using a Travis CI setup.
 
-[![Build Status](https://img.shields.io/travis/urdh/hcard/master)](https://travis-ci.org/urdh/hcard)
+[![Build Status](https://github.com/urdh/hcard/workflows/Deploy%20to%20Vercel/badge.svg)](https://github.com/urdh/hcard/actions)
 [![Codacy](https://img.shields.io/codacy/grade/c54ae6fa8886476a94176e14adff33f3/master)](https://www.codacy.com/app/Sigurdhsson/hcard)
 [![Coverage](https://img.shields.io/codacy/coverage/c54ae6fa8886476a94176e14adff33f3/master)](https://www.codacy.com/app/Sigurdhsson/hcard)
 
