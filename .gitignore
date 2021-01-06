@@ -1,5 +1,6 @@
 node_modules
-.DS_Store
-.env
 .nyc_output
+vendor/bundle
+.bundle/
+.env
 .vercel/
