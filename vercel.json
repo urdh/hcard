@@ -5,6 +5,7 @@
   },
   "routes": [
     { "src": "^/recent-commits\\.json$", "dest": "/api/recent_commits" },
+    { "src": "^/recent-tracks\\.json$", "dest": "/api/recent_tracks" },
     { "handle": "filesystem" },
     { "src": "^/\\.well-known(?:/.*)?$" },
     { "src": "^/((?:[^/]+/)*[^/\\.]+)$", "status": 308, "headers": { "Location": "/$1/" } }
