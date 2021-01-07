@@ -4,6 +4,7 @@
     "enabled": false
   },
   "routes": [
+    { "src": "^/currently-reading\\.json$", "dest": "/api/currently_reading" },
     { "src": "^/recent-commits\\.json$", "dest": "/api/recent_commits" },
     { "src": "^/recent-tracks\\.json$", "dest": "/api/recent_tracks" },
     { "handle": "filesystem" },

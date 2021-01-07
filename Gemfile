@@ -3,6 +3,7 @@
 source 'https://rubygems.org'
 ruby '~> 2.7.x'
 
+gem 'goodreads', '~> 0.8'
 gem 'lastfm', '~> 1.27.x'
 gem 'octokit', '~> 4.0'
 

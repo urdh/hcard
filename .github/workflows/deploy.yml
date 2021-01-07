@@ -13,6 +13,8 @@ jobs:
     name: Deploy to Vercel
     env:
       PRODUCTION: ${{ github.event_name == 'push' }}
+      GOODREADS_API_KEY: ${{ secrets.GOODREADS_API_KEY }}
+      GOODREADS_SECRET: ${{ secrets.GOODREADS_SECRET }}
       LASTFM_API_KEY: ${{ secrets.LASTFM_API_KEY }}
       LASTFM_SECRET: ${{ secrets.LASTFM_SECRET }}
     steps:
