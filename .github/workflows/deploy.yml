@@ -27,6 +27,8 @@ jobs:
         id: test
       - run: bundle exec rubocop
         id: lint
+      - run: bundle exec ./validate.rb
+        id: validate
       - uses: amondnet/vercel-action@v20
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
