@@ -16,7 +16,6 @@ env:
 
 install:
   - npm install npm-check
-  - npm install codacy-coverage
 
 before_script:
   - npm install
@@ -26,5 +25,4 @@ script:
 
 after_success:
   - npm-check --ignore 'eslint-config-plugin:node'
-  - tap --coverage-report=text-lcov | codacy-coverage --verbose
   - 'curl -s http://google.com/ping\?sitemap=http:%3A%2F%2Fsigurdhsson.org%2Fsitemap.xml > /dev/null'
