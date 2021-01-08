@@ -1,6 +1,0 @@
-{
-  "name": "urdh-hcard",
-  "description": "hCard of urdh, with some extra HTTP responses",
-  "website": "http://sigurdhsson.org",
-  "repository": "https://github.com/urdh/hcard"
-}

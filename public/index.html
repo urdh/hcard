@@ -393,11 +393,11 @@
         }
       );
       // Most recent photo from 500px
-      $.get('/recent-photos.json', {},
+      $.get('https://photography.sigurdhsson.org/photos.json', {},
         function (data) {
           if (data && data[0]) {
             var photo = data[0];
-            var link = photo.url;
+            var link = photo.url.replace(/index.html?/g,'');
             var title = photo.title;
             var camera = photo.camera;
             $('#recentphoto>span').html(
