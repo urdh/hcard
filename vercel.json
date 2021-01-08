@@ -4,11 +4,13 @@
     "enabled": false
   },
   "routes": [
+    { "src": "^/[0-9]{3}(?:-[a-z_]+)?\\.html$", "status": 404, "dest": "/404.html" },
     { "src": "^/currently-reading\\.json$", "dest": "/api/currently_reading" },
     { "src": "^/recent-commits\\.json$", "dest": "/api/recent_commits" },
     { "src": "^/recent-tracks\\.json$", "dest": "/api/recent_tracks" },
     { "handle": "filesystem" },
     { "src": "^/\\.well-known(?:/.*)?$" },
-    { "src": "^/((?:[^/]+/)*[^/\\.]+)$", "status": 308, "headers": { "Location": "/$1/" } }
+    { "src": "^/((?:[^/]+/)*[^/\\.]+)$", "status": 308, "headers": { "Location": "/$1/" } },
+    { "src": "^/(.*)", "status": 404, "dest": "/404.html" }
   ]
 }
