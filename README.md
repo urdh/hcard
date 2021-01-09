@@ -5,6 +5,6 @@ In addition to doing that, it serves 301/410 messages on some URLs, since some o
 
 All generated content is validated using a GitHub Workflow setup.
 
-[![Build Status](https://github.com/urdh/hcard/workflows/DCheck%20for%20broken%20links/badge.svg)](https://github.com/urdh/hcard/actions)
+[![Build Status](https://github.com/urdh/hcard/workflows/Check%20for%20broken%20links/badge.svg)](https://github.com/urdh/hcard/actions)
 
 License is MIT, if anyone cares.
