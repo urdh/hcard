@@ -19,7 +19,7 @@ module RecentCommits
           {
             sha: commit.sha,
             url: "http://github.com/#{event.repo.name}/commit/#{commit.sha}",
-            message: commit.message.split('\n')[0],
+            message: commit.message.split("\n").first,
             repo: event.repo.name,
             date: event.created_at
           }
