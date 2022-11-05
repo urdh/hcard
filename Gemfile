@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 source 'https://rubygems.org'
-ruby '~> 2.7.x'
+ruby '~> 2.7.0'
 
 gem 'goodreads', '~> 0.8'
 gem 'lastfm', '~> 1.27.x'
