@@ -21,7 +21,7 @@ module CurrentlyReading
         {
           title: review.book.title,
           authors: ([] << review.book.author).flatten.map(&:name),
-          url: "http://www.goodreads.com/book/show/#{review.book.id}",
+          url: "https://www.goodreads.com/book/show/#{review.book.id}",
           date: review.created_at
         }
       end
