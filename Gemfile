@@ -7,16 +7,18 @@ gem 'goodreads', '~> 0.8'
 gem 'lastfm', '~> 1.27.x'
 gem 'octokit', '~> 4.0'
 
-gem 'dotenv', '~> 2.7', groups: %i[development test]
-gem 'rspec', '~> 3.10', groups: %i[development test]
-gem 'rubocop', '~> 1.7', groups: %i[development test]
-gem 'rubocop-rspec', '~> 2.1', groups: %i[development test]
-gem 'webrick', '>= 0', groups: %i[development test]
+group :test, optional: true do
+  gem 'dotenv', '~> 2.7'
+  gem 'rspec', '~> 3.10'
+  gem 'rubocop', '~> 1.7'
+  gem 'rubocop-rspec', '~> 2.1'
+  gem 'webrick', '>= 0'
 
-# Used by validate.rb
-gem 'colorize', '~> 0.8.1', groups: %i[development test]
-gem 'html5_validator', '~> 1.0', groups: %i[development test]
-gem 'html-proofer', '~> 5.0', groups: %i[development test]
-gem 'nokogiri', '~> 1.14', groups: %i[development test]
-gem 'open_uri_redirections', '~> 0.2.1', groups: %i[development test]
-gem 'w3c_validators', '~> 1.3', groups: %i[development test]
+  # Used by validate.rb
+  gem 'colorize', '~> 0.8.1'
+  gem 'html5_validator', '~> 1.0'
+  gem 'html-proofer', '~> 5.0'
+  gem 'nokogiri', '~> 1.14'
+  gem 'open_uri_redirections', '~> 0.2.1'
+  gem 'w3c_validators', '~> 1.3'
+end
