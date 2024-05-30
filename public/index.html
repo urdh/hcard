@@ -337,8 +337,8 @@
     </div>
   </section>
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js" integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk" crossorigin="anonymous"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js" integrity="sha384-Lh7SNUss9JoImCvc96eCUnLX3HvY4kb0UZCWZbYWvceJ+o5CJeOJqqNoheaGkNHT" crossorigin="anonymous"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet-providers/1.1.7/leaflet-providers.min.js" integrity="sha384-GH+rmnooFw2cmIZQ7VwFMARBtVEEeCkxVSnFxbeT2cpbLJsGmUh6v2Sgbp9hqzGA" crossorigin="anonymous"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js" integrity="sha512-BwHfrr4c9kmRkLw6iXFdzcdWV/PGkVgiIyIWLLlTSXzWQzxuSg4DiQUCpauz/EWjgk5TYQqX/kvn9pG1NpYfqg==" crossorigin="anonymous"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet-providers/1.13.0/leaflet-providers.min.js" integrity="sha512-5EYsvqNbFZ8HX60keFbe56Wr0Mq5J1RrA0KdVcfGDhnjnzIRsDrT/S3cxdzpVN2NGxAB9omgqnlh4/06TvWCMw==" crossorigin="anonymous"></script>
   <script>
     $(function () {
       // Map
@@ -350,7 +350,7 @@
         scrollWheelZoom: false,
         zoomControl: false
       });
-      L.tileLayer.provider('Stamen.TonerLite').addTo(map);
+      L.tileLayer.provider('CartoDB.Positron').addTo(map);
       // Currently reading on Goodreads (Note: public api key is from rss feed link)
       $.get('/currently-reading.json', {},
         function (data) {
