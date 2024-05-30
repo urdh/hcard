@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Deploy to Vercel
     env:
+      BUNDLE_WITH: 'test'
       PRODUCTION: ${{ github.event_name == 'push' }}
       GOODREADS_API_KEY: ${{ secrets.GOODREADS_API_KEY }}
       GOODREADS_SECRET: ${{ secrets.GOODREADS_SECRET }}
