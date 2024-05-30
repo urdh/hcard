@@ -18,7 +18,7 @@ module RecentCommits
         event.payload.commits.reverse_each.map do |commit|
           {
             sha: commit.sha,
-            url: "http://github.com/#{event.repo.name}/commit/#{commit.sha}",
+            url: "https://github.com/#{event.repo.name}/commit/#{commit.sha}",
             message: commit.message.split("\n").first,
             repo: event.repo.name,
             date: event.created_at
