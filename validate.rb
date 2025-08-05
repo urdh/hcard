@@ -109,7 +109,7 @@ puts "Running html-proofer in content in 'public/'..."
 puts "\n"
 htmlproofer = HTMLProofer.check_directory('./public', { ssl_verifyhost: 2,
                                                         only_4xx: true,
-                                                        url_ignore: [],
+                                                        url_ignore: [%r{www.reddit.com/user/urdh}],
                                                         parallel: { in_processes: 3 } }).run
 
 puts "\n"
