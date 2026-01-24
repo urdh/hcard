@@ -14,16 +14,17 @@ module RecentCommits
       res.status = e.response_status
       res.body = e.body
     else
-      commits = events.select { |evt| evt[:type] == 'PushEvent' }.flat_map do |event|
-        event.payload.commits.reverse_each.map do |commit|
-          {
-            sha: commit.sha,
-            url: "https://github.com/#{event.repo.name}/commit/#{commit.sha}",
-            message: commit.message.split("\n").first,
-            repo: event.repo.name,
-            date: event.created_at
-          }
-        end
+      commits = events.select { |evt| evt[:type] == 'PushEvent' }.map do |event|
+        commit = client.commit(event.payload.repository_id, event.payload.head)
+        next unless commit
+
+        {
+          sha: event.payload.head,
+          url: "https://github.com/#{event.repo.name}/commit/#{commit.sha}",
+          message: commit.commit.message.split("\n").first,
+          repo: event.repo.name,
+          date: event.created_at
+        }
       end
       res.status = 200
       res.body = commits.to_json
