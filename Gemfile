@@ -18,7 +18,7 @@ group :test, optional: true do
   gem 'colorize', '~> 0.8.1'
   gem 'html5_validator', '~> 1.0'
   gem 'html-proofer', '~> 5.0'
-  gem 'nokogiri', '~> 1.16'
+  gem 'nokogiri', '~> 1.18'
   gem 'open_uri_redirections', '~> 0.2.1'
   gem 'w3c_validators', '~> 1.3'
 end
