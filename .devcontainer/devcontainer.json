@@ -1,0 +1,11 @@
+{
+    "image": "mcr.microsoft.com/devcontainers/ruby:3.3",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "Shopify.ruby-lsp",
+                "connorshea.vscode-ruby-test-adapter"
+            ]
+        }
+    }
+}
