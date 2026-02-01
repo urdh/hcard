@@ -6,46 +6,36 @@ require 'nokogiri'
 require 'html5_validator'
 require 'w3c_validators'
 require 'open-uri'
-require 'open_uri_redirections'
 require 'html-proofer'
 require 'colorize'
 
 IGNORED_FILES = [].freeze
 
-# Helper for reading a file.
-def get_contents(file)
-  if file.respond_to? :read
-    file.reading
-  else
-    read_local_file(file)
-  end
-end
-
 # HACK: w3c_validators doesn't provide a generic XML validator.
 # We provide a replacement based on Nokogiri with compatible interface.
 class XMLValidator < W3CValidators::Validator
-  def validate_against_schema(document)
-    schema_uri = document.xpath('*/@xsi:schemaLocation').to_s.split[1]
-    schema = URI.parse(schema_uri).open(allow_redirections: :safe)
-    Nokogiri::XML::Schema(schema.read).validate(document)
-  end
-  private :validate_against_schema
-
-  def validate_file(file) # rubocop:disable Metrics/MethodLength
-    src = get_contents(file)
+  def validate_file(file)
+    src = if file.respond_to? :read
+            file.read
+          else
+            read_local_file(file)
+          end
 
     begin
       document = Nokogiri::XML(src)
-      if document.xpath('*/@xsi:schemaLocation').empty?
-        @results = W3CValidators::Results.new({ uri: nil, validity: true })
-      else
-        errors = validate_against_schema(document)
-        @results = W3CValidators::Results.new({ uri: nil, validity: errors.empty? })
-        errors.each { |msg| @results.add_error({ message: msg.to_s }) if msg.error? }
-      end
-    rescue StandardError
+      @results = if document.xpath('*/@xsi:schemaLocation').empty?
+                   W3CValidators::Results.new({ uri: nil, validity: true })
+                 else
+                   schema_uri = document.xpath('*/@xsi:schemaLocation').to_s.split[1]
+                   schema = Nokogiri::XML::Schema(URI.open(schema_uri).read) # rubocop:disable Security/Open
+                   errors = schema.validate(document)
+                   r = W3CValidators::Results.new({ uri: nil, validity: errors.empty? })
+                   errors.each { |msg| r.add_error({ message: msg.to_s }) if msg.error? }
+                   r
+                 end
+    rescue StandardError => e
       @results = W3CValidators::Results.new({ uri: nil, validity: false })
-      @results.add_error({ message: 'Nokogiri threw errors on input.' })
+      @results.add_error({ message: "Nokogiri threw errors on input: #{e}" })
     end
     @results
   end
@@ -55,7 +45,11 @@ end
 # We provide our own replacement based on the html5_validator gem, with compatible interface.
 class HtmlValidator < W3CValidators::Validator
   def validate_file(file)
-    src = get_contents(file)
+    src = if file.respond_to? :read
+            file.read
+          else
+            read_local_file(file)
+          end
 
     validator = Html5Validator::Validator.new
     validator.validate_text(src)
@@ -65,14 +59,24 @@ class HtmlValidator < W3CValidators::Validator
   end
 end
 
-puts "Validating jekyll output in 'public/'..."
-puts "\n"
-failed = 0
-passed = 0
-skipped = 0
+# Use a custom html-proofer with less verbose output
+class Reporter < HTMLProofer::Reporter
+  def report
+    failures.each_with_object([]) do |(_, failures), _|
+      failures.each do |failure|
+        path_str = blank?(failure.path) ? '' : failure.path.to_s
+        line_str = failure.line.nil? ? '' : ":#{failure.line}"
+        path_and_line = "#{path_str}#{line_str}"
+        path_and_line = blank?(path_and_line) ? '' : "#{path_and_line}: "
+        status_str = failure.status.nil? ? '' : " (status code #{failure.status})"
+        puts "#{path_and_line}#{failure.description}#{status_str}".colorize(:red)
+      end
+    end
+  end
+end
 
 # Iterate over all the site files and validate them as appropriate.
-Dir.glob('public/**/*') do |file|
+validation = Dir.glob('public/**/*').flat_map do |file|
   # Skip ignored files and all directories
   next if File.directory?(file)
   next if IGNORED_FILES.include? file
@@ -90,32 +94,38 @@ Dir.glob('public/**/*') do |file|
               when '.css'
                 W3CValidators::CSSValidator.new
               else
-                skipped += 1
                 puts file.colorize(:light_black)
                 next
               end
 
   # ... and then run the validation.
-  if validator.validate_file(file).errors.empty?
+  errors = validator.validate_file(file).errors
+  if errors.empty?
     puts file.colorize(:green)
-    passed += 1
   else
     puts file.colorize(:red)
-    failed += 1
   end
+
+  errors.map { |error| { path: file, line: error.line || 0, description: error.message } }
+end.compact
+
+unless validation.empty?
+  puts "\n\n"
+  validation.each do |failure|
+    puts "#{failure[:path]}:#{failure[:line]}: #{failure[:description]}".colorize(:red)
+  end
+  puts "\n"
+  puts "Validation found #{validation.length} failures!"
 end
 
-puts "Running html-proofer in content in 'public/'..."
+# Also run html-proofer on all generated html
 puts "\n"
-htmlproofer = HTMLProofer.check_directory('./public', { ssl_verifyhost: 2,
-                                                        only_4xx: true,
-                                                        ignore_urls: [%r{www.reddit.com/user/urdh}],
-                                                        parallel: { in_processes: 3 },
-                                                        disable_external: ARGV.include?('--disable-external') }).run
+proofer = HTMLProofer.check_directory('./public', { ssl_verifyhost: 2,
+                                                    only_4xx: true,
+                                                    url_ignore: [/doi.org/],
+                                                    parallel: { in_processes: 3 },
+                                                    disable_external: ARGV.include?('--disable-external') })
+proofer.reporter = Reporter.new
+proofer.run
 
-puts "\n"
-puts "#{passed} files pass validation, #{failed} files failed."
-puts 'The html-proofer test failed!' unless htmlproofer
-
-failed += 1 unless htmlproofer
-exit failed
+exit(1) unless validation.empty?

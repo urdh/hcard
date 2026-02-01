@@ -1,3 +1,5 @@
 AllCops:
   TargetRubyVersion: 3.3
   NewCops: enable
+Metrics:
+  Enabled: false
