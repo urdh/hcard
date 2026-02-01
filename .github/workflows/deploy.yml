@@ -7,29 +7,35 @@ on:
     branches: [master]
   workflow_dispatch:
 
+env:
+  GOODREADS_API_KEY: ${{ secrets.GOODREADS_API_KEY }}
+  GOODREADS_SECRET: ${{ secrets.GOODREADS_SECRET }}
+  LASTFM_API_KEY: ${{ secrets.LASTFM_API_KEY }}
+  LASTFM_SECRET: ${{ secrets.LASTFM_SECRET }}
+
 jobs:
+  verify:
+    runs-on: ubuntu-latest
+    name: Test and validate
+    container: ruby:3.3
+    env:
+      BUNDLE_FROZEN: true
+      BUNDLE_WITHOUT: development
+    steps:
+      - uses: actions/checkout@v3
+      - run: bundle install --frozen
+      - run: bundle exec rspec
+      - run: bundle exec rubocop
+      - run: bundle exec ./validate.rb --disable-external
+
   deploy:
     runs-on: ubuntu-latest
     name: Deploy to Vercel
+    needs: verify
     env:
-      BUNDLE_WITH: 'test'
       PRODUCTION: ${{ github.event_name == 'push' }}
-      GOODREADS_API_KEY: ${{ secrets.GOODREADS_API_KEY }}
-      GOODREADS_SECRET: ${{ secrets.GOODREADS_SECRET }}
-      LASTFM_API_KEY: ${{ secrets.LASTFM_API_KEY }}
-      LASTFM_SECRET: ${{ secrets.LASTFM_SECRET }}
     steps:
       - uses: actions/checkout@v3
-      - uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.3'
-          bundler-cache: true
-      - run: bundle exec rspec
-        id: test
-      - run: bundle exec rubocop
-        id: lint
-      - run: bundle exec ./validate.rb
-        id: validate
       - uses: amondnet/vercel-action@v25
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
@@ -37,6 +43,5 @@ jobs:
           vercel-args: --confirm ${{ (env.PRODUCTION == 'true') && '--prod' || '' }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-        if: ${{ always() && steps.test.outcome == 'success' }}
       - run: curl -s https://google.com/ping\?sitemap=https://sigurdhsson.org/sitemap.xml
         if: ${{ success() && (env.PRODUCTION == 'true') }}
