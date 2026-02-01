@@ -25,3 +25,7 @@ group :development, :lint do
   gem 'rubocop', '~> 1.7'
   gem 'rubocop-rspec', '~> 2.1'
 end
+
+group :development do
+  gem 'ruby-lsp'
+end
