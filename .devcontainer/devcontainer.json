@@ -1,10 +1,9 @@
 {
-    "image": "mcr.microsoft.com/devcontainers/ruby:3.3",
+    "image": "mcr.microsoft.com/devcontainers/rust:2-1",
     "customizations": {
         "vscode": {
             "extensions": [
-                "Shopify.ruby-lsp",
-                "connorshea.vscode-ruby-test-adapter"
+                "rust-lang.rust-analyzer"
             ]
         }
     }
