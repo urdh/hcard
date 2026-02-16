@@ -13,6 +13,6 @@ jobs:
     env:
       BUNDLE_FROZEN: true
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
       - run: bundle install --frozen
       - run: bundle exec ./validate.rb
