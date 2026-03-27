@@ -70,8 +70,9 @@ GEM
     public_suffix (4.0.6)
     racc (1.8.1)
     rainbow (3.1.1)
-    rbs (3.10.3)
+    rbs (4.0.2)
       logger
+      prism (>= 1.6.0)
       tsort
     regexp_parser (2.11.3)
     rest-client (2.1.0)
@@ -122,7 +123,7 @@ GEM
       rubocop-rspec_rails (~> 2.28)
     rubocop-rspec_rails (2.29.1)
       rubocop (~> 1.61)
-    ruby-lsp (0.26.5)
+    ruby-lsp (0.26.9)
       language_server-protocol (~> 3.17.0)
       prism (>= 1.2, < 2.0)
       rbs (>= 3, < 5)
